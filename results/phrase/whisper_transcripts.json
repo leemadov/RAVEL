@@ -1,0 +1,44 @@
+{
+  "target": "it relieved him for a while",
+  "judge": "openai-whisper small.en (external, evaluation only)",
+  "rows": [
+    {
+      "name": "original_recording",
+      "text": "It relieved him for a while."
+    },
+    {
+      "name": "original_through_codec",
+      "text": "It relieved him for a while."
+    },
+    {
+      "name": "ravel_greedy",
+      "temperature": 0.0,
+      "forced_start": 5,
+      "text": "It relieved him for a while."
+    },
+    {
+      "name": "ravel_temp0.5_a",
+      "temperature": 0.5,
+      "forced_start": 5,
+      "text": "It relieved him for a while."
+    },
+    {
+      "name": "ravel_temp0.5_b",
+      "temperature": 0.5,
+      "forced_start": 5,
+      "text": "It relieved him for a while."
+    },
+    {
+      "name": "ravel_temp0.8",
+      "temperature": 0.8,
+      "forced_start": 5,
+      "text": "It relieved him for a while."
+    },
+    {
+      "name": "ravel_policy_timing_greedy",
+      "temperature": 0.0,
+      "forced_start": null,
+      "text": "It relieved him for a while."
+    }
+  ]
+}

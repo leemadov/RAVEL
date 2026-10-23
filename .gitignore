@@ -13,3 +13,5 @@ data/
 !results/samples/**/
 !results/samples/**/*.wav
 !results/samples/*.wav
+!results/phrase/
+!results/phrase/*.wav
