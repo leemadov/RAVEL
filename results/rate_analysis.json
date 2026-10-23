@@ -1,0 +1,130 @@
+{
+  "checkpoints/sim/e1_C_s0/final.pt": {
+    "slow": {
+      "n_episodes": 45,
+      "share_of_speech": {
+        "speak_slow": 0.0,
+        "speak": 0.982,
+        "speak_fast": 0.018
+      },
+      "bargein_per_episode": 0.422,
+      "cost": 6.178
+    },
+    "neutral": {
+      "n_episodes": 48,
+      "share_of_speech": {
+        "speak_slow": 0.0,
+        "speak": 0.97,
+        "speak_fast": 0.03
+      },
+      "bargein_per_episode": 0.188,
+      "cost": 6.038
+    },
+    "fast": {
+      "n_episodes": 57,
+      "share_of_speech": {
+        "speak_slow": 0.0,
+        "speak": 0.974,
+        "speak_fast": 0.026
+      },
+      "bargein_per_episode": 0.404,
+      "cost": 7.447
+    }
+  },
+  "checkpoints/sim/e1_C_s1/final.pt": {
+    "slow": {
+      "n_episodes": 45,
+      "share_of_speech": {
+        "speak_slow": 0.011,
+        "speak": 0.782,
+        "speak_fast": 0.207
+      },
+      "bargein_per_episode": 0.733,
+      "cost": 7.287
+    },
+    "neutral": {
+      "n_episodes": 48,
+      "share_of_speech": {
+        "speak_slow": 0.015,
+        "speak": 0.784,
+        "speak_fast": 0.201
+      },
+      "bargein_per_episode": 0.417,
+      "cost": 7.179
+    },
+    "fast": {
+      "n_episodes": 57,
+      "share_of_speech": {
+        "speak_slow": 0.007,
+        "speak": 0.772,
+        "speak_fast": 0.222
+      },
+      "bargein_per_episode": 0.351,
+      "cost": 6.823
+    }
+  },
+  "checkpoints/sim/e1_C_s2/final.pt": {
+    "slow": {
+      "n_episodes": 45,
+      "share_of_speech": {
+        "speak_slow": 0.0,
+        "speak": 0.062,
+        "speak_fast": 0.938
+      },
+      "bargein_per_episode": 1.089,
+      "cost": 9.204
+    },
+    "neutral": {
+      "n_episodes": 48,
+      "share_of_speech": {
+        "speak_slow": 0.0,
+        "speak": 0.058,
+        "speak_fast": 0.942
+      },
+      "bargein_per_episode": 0.542,
+      "cost": 8.116
+    },
+    "fast": {
+      "n_episodes": 57,
+      "share_of_speech": {
+        "speak_slow": 0.0,
+        "speak": 0.053,
+        "speak_fast": 0.947
+      },
+      "bargein_per_episode": 0.105,
+      "cost": 7.076
+    }
+  },
+  "checkpoints/sim/e1_Bcrit_s0/final.pt": {
+    "slow": {
+      "n_episodes": 45,
+      "share_of_speech": {
+        "speak_slow": 0.123,
+        "speak": 0.877,
+        "speak_fast": 0.0
+      },
+      "bargein_per_episode": 0.511,
+      "cost": 9.987
+    },
+    "neutral": {
+      "n_episodes": 48,
+      "share_of_speech": {
+        "speak_slow": 0.187,
+        "speak": 0.813,
+        "speak_fast": 0.0
+      },
+      "bargein_per_episode": 0.25,
+      "cost": 9.884
+    },
+    "fast": {
+      "n_episodes": 57,
+      "share_of_speech": {
+        "speak_slow": 0.141,
+        "speak": 0.859,
+        "speak_fast": 0.0
+      },
+      "bargein_per_episode": 0.404,
+      "cost": 10.39
+    }
+  }
+}

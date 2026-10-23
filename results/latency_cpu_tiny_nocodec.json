@@ -1,0 +1,21 @@
+{
+  "device": "cpu",
+  "threads": 4,
+  "torch": "2.9.0+cpu",
+  "model": "ravel_tiny_v2.1",
+  "params_M": 51.21,
+  "codec_decode": false,
+  "listen_tick_ms": {
+    "mean": 11.59,
+    "p50": 10.54,
+    "p95": 18.7
+  },
+  "decision_tick_ms": {
+    "mean": 34.4,
+    "p50": 31.35,
+    "p95": 50.06
+  },
+  "compute_per_40ms_slot_ms": 46.0,
+  "real_time_factor": 1.15,
+  "algorithmic_reaction_latency_ms": "40-60 (slot schedule) + decision compute"
+}

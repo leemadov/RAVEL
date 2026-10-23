@@ -1,0 +1,21 @@
+{
+  "variant": "B",
+  "params": 7371833,
+  "args": {
+    "variant": "B",
+    "size": "micro",
+    "train": "data/sim_train.pt",
+    "test": "data/sim_test.pt",
+    "out": "checkpoints/sim/e1_B_s2",
+    "steps": 1000,
+    "batch": 16,
+    "slots": 100,
+    "lr": 0.001,
+    "seed": 2,
+    "threads": 1,
+    "max_train_episodes": 0,
+    "override": []
+  },
+  "n_train_episodes": 2000,
+  "resumed": false
+}

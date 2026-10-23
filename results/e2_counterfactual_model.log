@@ -1,0 +1,228 @@
+checkpoints/sim/e1_C_s0/final.pt {
+ "beta0": {
+  "n_decisions": 840,
+  "mae_all_actions": 0.7921530945910544,
+  "mae_logged_action": 0.6447591544612082,
+  "mae_untaken_actions": 0.8290015796235158,
+  "spearman_across_actions": 0.5369047619047619,
+  "best_action_agreement": 0.6142857142857143,
+  "regret_vs_true_best": 0.13324047557336097,
+  "regret_of_logged_action": 0.1337637577514945,
+  "mean_true_q_sem": 0.3011558565519914,
+  "n_hesitation_decisions": 63,
+  "bias_speech_at_hesitation": -1.1258394957247773,
+  "true_q_speech_at_hesitation": 3.7764397360688697,
+  "pred_q_speech_at_hesitation": 2.650600240344093,
+  "event_prob_mae": {
+   "bargein": 0.03422073681071024,
+   "turn_abandon": 0.05703305070210869,
+   "reprompt": 0.0019438551212768863
+  },
+  "user_vad_prob_mae": 0.26969043374146123
+ },
+ "beta0.5": {
+  "n_decisions": 840,
+  "mae_all_actions": 0.7921530945910544,
+  "mae_logged_action": 0.6447591544612082,
+  "mae_untaken_actions": 0.8290015796235158,
+  "spearman_across_actions": 0.5369047619047619,
+  "best_action_agreement": 0.6107142857142858,
+  "regret_vs_true_best": 0.1337637577514945,
+  "regret_of_logged_action": 0.1337637577514945,
+  "mean_true_q_sem": 0.3011558565519914,
+  "n_hesitation_decisions": 63,
+  "bias_speech_at_hesitation": -1.1258394957247773,
+  "true_q_speech_at_hesitation": 3.7764397360688697,
+  "pred_q_speech_at_hesitation": 2.650600240344093,
+  "event_prob_mae": {
+   "bargein": 0.03422073681071024,
+   "turn_abandon": 0.05703305070210869,
+   "reprompt": 0.0019438551212768863
+  },
+  "user_vad_prob_mae": 0.26969043374146123
+ }
+}
+checkpoints/sim/e1_C_s1/final.pt {
+ "beta0": {
+  "n_decisions": 840,
+  "mae_all_actions": 0.8251660862814258,
+  "mae_logged_action": 0.6717971139510854,
+  "mae_untaken_actions": 0.863508329364011,
+  "spearman_across_actions": 0.4809523809523809,
+  "best_action_agreement": 0.580952380952381,
+  "regret_vs_true_best": 0.1460289769736392,
+  "regret_of_logged_action": 0.14799071240477,
+  "mean_true_q_sem": 0.29847431043640044,
+  "n_hesitation_decisions": 63,
+  "bias_speech_at_hesitation": -0.9525185621974304,
+  "true_q_speech_at_hesitation": 3.846805815380462,
+  "pred_q_speech_at_hesitation": 2.8942872531830317,
+  "event_prob_mae": {
+   "bargein": 0.03476757246580313,
+   "turn_abandon": 0.05619195447789804,
+   "reprompt": 0.0014563651645616324
+  },
+  "user_vad_prob_mae": 0.2724201630100207
+ },
+ "beta0.5": {
+  "n_decisions": 840,
+  "mae_all_actions": 0.8251660862814258,
+  "mae_logged_action": 0.6717971139510854,
+  "mae_untaken_actions": 0.863508329364011,
+  "spearman_across_actions": 0.4809523809523809,
+  "best_action_agreement": 0.5785714285714286,
+  "regret_vs_true_best": 0.14799071240477,
+  "regret_of_logged_action": 0.14799071240477,
+  "mean_true_q_sem": 0.29847431043640044,
+  "n_hesitation_decisions": 63,
+  "bias_speech_at_hesitation": -0.9525185621974304,
+  "true_q_speech_at_hesitation": 3.846805815380462,
+  "pred_q_speech_at_hesitation": 2.8942872531830317,
+  "event_prob_mae": {
+   "bargein": 0.03476757246580313,
+   "turn_abandon": 0.05619195447789804,
+   "reprompt": 0.0014563651645616324
+  },
+  "user_vad_prob_mae": 0.2724201630100207
+ }
+}
+checkpoints/sim/e1_C_s2/final.pt {
+ "beta0": {
+  "n_decisions": 840,
+  "mae_all_actions": 0.8557865627090833,
+  "mae_logged_action": 0.7205521301293034,
+  "mae_untaken_actions": 0.8895951708540282,
+  "spearman_across_actions": 0.45749999999999996,
+  "best_action_agreement": 0.5595238095238095,
+  "regret_vs_true_best": 0.19196733402658933,
+  "regret_of_logged_action": 0.19125838422681907,
+  "mean_true_q_sem": 0.2980013425839721,
+  "n_hesitation_decisions": 66,
+  "bias_speech_at_hesitation": -1.0035726457817034,
+  "true_q_speech_at_hesitation": 3.8257338627102047,
+  "pred_q_speech_at_hesitation": 2.8221612169285013,
+  "event_prob_mae": {
+   "bargein": 0.03568391283604017,
+   "turn_abandon": 0.05895722685029752,
+   "reprompt": 0.005126605624928943
+  },
+  "user_vad_prob_mae": 0.27794770885635417
+ },
+ "beta0.5": {
+  "n_decisions": 840,
+  "mae_all_actions": 0.8557865627090833,
+  "mae_logged_action": 0.7205521301293034,
+  "mae_untaken_actions": 0.8895951708540282,
+  "spearman_across_actions": 0.45749999999999996,
+  "best_action_agreement": 0.5619047619047619,
+  "regret_vs_true_best": 0.19125838422681907,
+  "regret_of_logged_action": 0.19125838422681907,
+  "mean_true_q_sem": 0.2980013425839721,
+  "n_hesitation_decisions": 66,
+  "bias_speech_at_hesitation": -1.0035726457817034,
+  "true_q_speech_at_hesitation": 3.8257338627102047,
+  "pred_q_speech_at_hesitation": 2.8221612169285013,
+  "event_prob_mae": {
+   "bargein": 0.03568391283604017,
+   "turn_abandon": 0.05895722685029752,
+   "reprompt": 0.005126605624928943
+  },
+  "user_vad_prob_mae": 0.27794770885635417
+ }
+}
+checkpoints/sim/e1_Bcrit_s0/final.pt {
+ "beta0": {
+  "n_decisions": 840,
+  "mae_all_actions": 0.8429158273705686,
+  "mae_logged_action": 0.7213078714173372,
+  "mae_untaken_actions": 0.8733178163588764,
+  "spearman_across_actions": 0.5063095238095237,
+  "best_action_agreement": 0.5488095238095239,
+  "regret_vs_true_best": 0.1942408020519243,
+  "regret_of_logged_action": 0.19259167251613038,
+  "mean_true_q_sem": 0.2998494259238657,
+  "n_hesitation_decisions": 85,
+  "bias_speech_at_hesitation": -1.193770764949442,
+  "true_q_speech_at_hesitation": 4.12357499281582,
+  "pred_q_speech_at_hesitation": 2.9298042278663785
+ },
+ "beta0.5": {
+  "n_decisions": 840,
+  "mae_all_actions": 0.8429158273705686,
+  "mae_logged_action": 0.7213078714173372,
+  "mae_untaken_actions": 0.8733178163588764,
+  "spearman_across_actions": 0.5063095238095237,
+  "best_action_agreement": 0.5476190476190477,
+  "regret_vs_true_best": 0.19259167251613038,
+  "regret_of_logged_action": 0.19259167251613038,
+  "mean_true_q_sem": 0.2998494259238657,
+  "n_hesitation_decisions": 85,
+  "bias_speech_at_hesitation": -1.193770764949442,
+  "true_q_speech_at_hesitation": 4.12357499281582,
+  "pred_q_speech_at_hesitation": 2.9298042278663785
+ }
+}
+checkpoints/sim/e1_Bcrit_s1/final.pt {
+ "beta0": {
+  "n_decisions": 840,
+  "mae_all_actions": 0.9354551819045506,
+  "mae_logged_action": 0.7195921090637001,
+  "mae_untaken_actions": 0.989420950114763,
+  "spearman_across_actions": 0.4638095238095237,
+  "best_action_agreement": 0.55,
+  "regret_vs_true_best": 0.195519780183266,
+  "regret_of_logged_action": 0.18847917782022103,
+  "mean_true_q_sem": 0.3001576557405489,
+  "n_hesitation_decisions": 78,
+  "bias_speech_at_hesitation": -0.6050505479625921,
+  "true_q_speech_at_hesitation": 4.070350262287413,
+  "pred_q_speech_at_hesitation": 3.4652997143248205
+ },
+ "beta0.5": {
+  "n_decisions": 840,
+  "mae_all_actions": 0.9354551819045506,
+  "mae_logged_action": 0.7195921090637001,
+  "mae_untaken_actions": 0.989420950114763,
+  "spearman_across_actions": 0.4638095238095237,
+  "best_action_agreement": 0.55,
+  "regret_vs_true_best": 0.18847917782022103,
+  "regret_of_logged_action": 0.18847917782022103,
+  "mean_true_q_sem": 0.3001576557405489,
+  "n_hesitation_decisions": 78,
+  "bias_speech_at_hesitation": -0.6050505479625921,
+  "true_q_speech_at_hesitation": 4.070350262287413,
+  "pred_q_speech_at_hesitation": 3.4652997143248205
+ }
+}
+checkpoints/sim/e1_Bcrit_s2/final.pt {
+ "beta0": {
+  "n_decisions": 840,
+  "mae_all_actions": 0.836841607653921,
+  "mae_logged_action": 0.6820303165862849,
+  "mae_untaken_actions": 0.87554443042083,
+  "spearman_across_actions": 0.4101190476190476,
+  "best_action_agreement": 0.5321428571428571,
+  "regret_vs_true_best": 0.20934153551979764,
+  "regret_of_logged_action": 0.20979879544058372,
+  "mean_true_q_sem": 0.2966389470985455,
+  "n_hesitation_decisions": 65,
+  "bias_speech_at_hesitation": -1.0435663117878737,
+  "true_q_speech_at_hesitation": 3.9353133994865903,
+  "pred_q_speech_at_hesitation": 2.8917470876987164
+ },
+ "beta0.5": {
+  "n_decisions": 840,
+  "mae_all_actions": 0.836841607653921,
+  "mae_logged_action": 0.6820303165862849,
+  "mae_untaken_actions": 0.87554443042083,
+  "spearman_across_actions": 0.4101190476190476,
+  "best_action_agreement": 0.5297619047619048,
+  "regret_vs_true_best": 0.20979879544058372,
+  "regret_of_logged_action": 0.20979879544058372,
+  "mean_true_q_sem": 0.2966389470985455,
+  "n_hesitation_decisions": 65,
+  "bias_speech_at_hesitation": -1.0435663117878737,
+  "true_q_speech_at_hesitation": 3.9353133994865903,
+  "pred_q_speech_at_hesitation": 2.8917470876987164
+ }
+}

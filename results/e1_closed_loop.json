@@ -1,0 +1,4542 @@
+{
+  "n_eval_episodes": 200,
+  "n_val_episodes": 60,
+  "test_users": [
+    "1673",
+    "174",
+    "1919",
+    "2277",
+    "2412",
+    "3752",
+    "3853",
+    "8297"
+  ],
+  "episode_slots": 200,
+  "references": {
+    "logging_heuristic(eps=0.1)": {
+      "cost": 24.7087,
+      "cost_sem": 0.5772,
+      "overlap_slots": 17.595,
+      "bc_overlap_slots": 9.165,
+      "gap_slots": 11.02,
+      "dead_air_slots": 4.855,
+      "irrelevant_slots": 3.555,
+      "bargein": 0.59,
+      "turn_abandon": 0.51,
+      "reprompt": 0.005,
+      "frac_silent": 0.4897,
+      "frac_backchannel": 0.1121,
+      "frac_speak": 0.1324,
+      "frac_speak_slow": 0.1268,
+      "frac_speak_fast": 0.139,
+      "frac_any_speech": 0.3982,
+      "response_latency_slots": 2.4372,
+      "n_episodes": 200
+    },
+    "heuristic(eps=0)": {
+      "cost": 7.558,
+      "cost_sem": 0.262,
+      "overlap_slots": 3.24,
+      "bc_overlap_slots": 1.745,
+      "gap_slots": 5.255,
+      "dead_air_slots": 6.905,
+      "irrelevant_slots": 0.0,
+      "bargein": 0.565,
+      "turn_abandon": 0.47,
+      "reprompt": 0.0,
+      "frac_silent": 0.6345,
+      "frac_backchannel": 0.0296,
+      "frac_speak": 0.1086,
+      "frac_speak_slow": 0.1255,
+      "frac_speak_fast": 0.1019,
+      "frac_any_speech": 0.3359,
+      "response_latency_slots": 3.339,
+      "n_episodes": 200
+    },
+    "always_silent": {
+      "cost": 17.952,
+      "cost_sem": 0.4052,
+      "overlap_slots": 0.0,
+      "bc_overlap_slots": 0.0,
+      "gap_slots": 77.045,
+      "dead_air_slots": 11.505,
+      "irrelevant_slots": 0.0,
+      "bargein": 0.0,
+      "turn_abandon": 0.0,
+      "reprompt": 1.94,
+      "frac_silent": 1.0,
+      "frac_backchannel": 0.0,
+      "frac_speak": 0.0,
+      "frac_speak_slow": 0.0,
+      "frac_speak_fast": 0.0,
+      "frac_any_speech": 0.0,
+      "response_latency_slots": NaN,
+      "n_episodes": 200
+    },
+    "random": {
+      "cost": 72.3438,
+      "cost_sem": 1.135,
+      "overlap_slots": 57.28,
+      "bc_overlap_slots": 18.935,
+      "gap_slots": 16.42,
+      "dead_air_slots": 2.485,
+      "irrelevant_slots": 23.41,
+      "bargein": 0.335,
+      "turn_abandon": 0.7,
+      "reprompt": 0.03,
+      "frac_silent": 0.1993,
+      "frac_backchannel": 0.1999,
+      "frac_speak": 0.2009,
+      "frac_speak_slow": 0.2,
+      "frac_speak_fast": 0.1999,
+      "frac_any_speech": 0.6008,
+      "response_latency_slots": 0.6944,
+      "n_episodes": 200
+    },
+    "oracle(privileged)": {
+      "cost": 0.5943,
+      "cost_sem": 0.0495,
+      "overlap_slots": 0.0,
+      "bc_overlap_slots": 0.0,
+      "gap_slots": 0.02,
+      "dead_air_slots": 6.825,
+      "irrelevant_slots": 0.0,
+      "bargein": 0.125,
+      "turn_abandon": 0.0,
+      "reprompt": 0.0,
+      "frac_silent": 0.7054,
+      "frac_backchannel": 0.0226,
+      "frac_speak": 0.0936,
+      "frac_speak_slow": 0.0799,
+      "frac_speak_fast": 0.0984,
+      "frac_any_speech": 0.272,
+      "response_latency_slots": 0.0083,
+      "n_episodes": 200
+    }
+  },
+  "models": {
+    "B:prior:greedy": {
+      "cost": {
+        "mean": 17.952,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          17.952,
+          17.952,
+          17.952
+        ]
+      },
+      "cost_sem": {
+        "mean": 0.405,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.405,
+          0.405,
+          0.405
+        ]
+      },
+      "overlap_slots": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "bc_overlap_slots": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "gap_slots": {
+        "mean": 77.045,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          77.045,
+          77.045,
+          77.045
+        ]
+      },
+      "dead_air_slots": {
+        "mean": 11.505,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          11.505,
+          11.505,
+          11.505
+        ]
+      },
+      "irrelevant_slots": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "bargein": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "turn_abandon": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "reprompt": {
+        "mean": 1.94,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          1.94,
+          1.94,
+          1.94
+        ]
+      },
+      "frac_silent": {
+        "mean": 1.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "frac_backchannel": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "frac_speak": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "frac_speak_slow": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "frac_speak_fast": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "frac_any_speech": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "response_latency_slots": {
+        "mean": NaN,
+        "sem_over_seeds": NaN,
+        "per_seed": [
+          NaN,
+          NaN,
+          NaN
+        ]
+      }
+    },
+    "B:prior:sample": {
+      "cost": {
+        "mean": 23.566,
+        "sem_over_seeds": 0.084,
+        "per_seed": [
+          23.724,
+          23.533,
+          23.44
+        ]
+      },
+      "cost_sem": {
+        "mean": 0.562,
+        "sem_over_seeds": 0.015,
+        "per_seed": [
+          0.553,
+          0.541,
+          0.592
+        ]
+      },
+      "overlap_slots": {
+        "mean": 16.793,
+        "sem_over_seeds": 0.092,
+        "per_seed": [
+          16.815,
+          16.94,
+          16.625
+        ]
+      },
+      "bc_overlap_slots": {
+        "mean": 9.277,
+        "sem_over_seeds": 0.378,
+        "per_seed": [
+          8.545,
+          9.805,
+          9.48
+        ]
+      },
+      "gap_slots": {
+        "mean": 10.982,
+        "sem_over_seeds": 0.197,
+        "per_seed": [
+          10.815,
+          10.755,
+          11.375
+        ]
+      },
+      "dead_air_slots": {
+        "mean": 5.105,
+        "sem_over_seeds": 0.122,
+        "per_seed": [
+          4.875,
+          5.15,
+          5.29
+        ]
+      },
+      "irrelevant_slots": {
+        "mean": 2.94,
+        "sem_over_seeds": 0.084,
+        "per_seed": [
+          3.095,
+          2.805,
+          2.92
+        ]
+      },
+      "bargein": {
+        "mean": 0.545,
+        "sem_over_seeds": 0.033,
+        "per_seed": [
+          0.61,
+          0.515,
+          0.51
+        ]
+      },
+      "turn_abandon": {
+        "mean": 0.49,
+        "sem_over_seeds": 0.015,
+        "per_seed": [
+          0.51,
+          0.46,
+          0.5
+        ]
+      },
+      "reprompt": {
+        "mean": 0.003,
+        "sem_over_seeds": 0.003,
+        "per_seed": [
+          0.0,
+          0.01,
+          0.0
+        ]
+      },
+      "frac_silent": {
+        "mean": 0.499,
+        "sem_over_seeds": 0.001,
+        "per_seed": [
+          0.5,
+          0.497,
+          0.502
+        ]
+      },
+      "frac_backchannel": {
+        "mean": 0.109,
+        "sem_over_seeds": 0.003,
+        "per_seed": [
+          0.104,
+          0.113,
+          0.11
+        ]
+      },
+      "frac_speak": {
+        "mean": 0.134,
+        "sem_over_seeds": 0.005,
+        "per_seed": [
+          0.143,
+          0.126,
+          0.132
+        ]
+      },
+      "frac_speak_slow": {
+        "mean": 0.128,
+        "sem_over_seeds": 0.008,
+        "per_seed": [
+          0.129,
+          0.141,
+          0.114
+        ]
+      },
+      "frac_speak_fast": {
+        "mean": 0.13,
+        "sem_over_seeds": 0.006,
+        "per_seed": [
+          0.124,
+          0.123,
+          0.143
+        ]
+      },
+      "frac_any_speech": {
+        "mean": 0.391,
+        "sem_over_seeds": 0.002,
+        "per_seed": [
+          0.396,
+          0.39,
+          0.388
+        ]
+      },
+      "response_latency_slots": {
+        "mean": 2.754,
+        "sem_over_seeds": 0.131,
+        "per_seed": [
+          2.878,
+          2.892,
+          2.491
+        ]
+      }
+    },
+    "B:prior:thresh|0.1": {
+      "cost": {
+        "mean": 80.194,
+        "sem_over_seeds": 2.832,
+        "per_seed": [
+          83.981,
+          81.95,
+          74.653
+        ]
+      },
+      "cost_sem": {
+        "mean": 2.31,
+        "sem_over_seeds": 0.088,
+        "per_seed": [
+          2.47,
+          2.167,
+          2.294
+        ]
+      },
+      "overlap_slots": {
+        "mean": 66.073,
+        "sem_over_seeds": 1.99,
+        "per_seed": [
+          68.15,
+          67.975,
+          62.095
+        ]
+      },
+      "bc_overlap_slots": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "gap_slots": {
+        "mean": 0.06,
+        "sem_over_seeds": 0.003,
+        "per_seed": [
+          0.065,
+          0.06,
+          0.055
+        ]
+      },
+      "dead_air_slots": {
+        "mean": 2.083,
+        "sem_over_seeds": 0.113,
+        "per_seed": [
+          2.165,
+          1.86,
+          2.225
+        ]
+      },
+      "irrelevant_slots": {
+        "mean": 35.515,
+        "sem_over_seeds": 3.221,
+        "per_seed": [
+          41.61,
+          34.275,
+          30.66
+        ]
+      },
+      "bargein": {
+        "mean": 0.347,
+        "sem_over_seeds": 0.048,
+        "per_seed": [
+          0.255,
+          0.415,
+          0.37
+        ]
+      },
+      "turn_abandon": {
+        "mean": 0.665,
+        "sem_over_seeds": 0.02,
+        "per_seed": [
+          0.68,
+          0.69,
+          0.625
+        ]
+      },
+      "reprompt": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "frac_silent": {
+        "mean": 0.277,
+        "sem_over_seeds": 0.012,
+        "per_seed": [
+          0.277,
+          0.255,
+          0.298
+        ]
+      },
+      "frac_backchannel": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "frac_speak": {
+        "mean": 0.123,
+        "sem_over_seeds": 0.027,
+        "per_seed": [
+          0.072,
+          0.165,
+          0.132
+        ]
+      },
+      "frac_speak_slow": {
+        "mean": 0.274,
+        "sem_over_seeds": 0.118,
+        "per_seed": [
+          0.06,
+          0.467,
+          0.295
+        ]
+      },
+      "frac_speak_fast": {
+        "mean": 0.326,
+        "sem_over_seeds": 0.14,
+        "per_seed": [
+          0.591,
+          0.113,
+          0.275
+        ]
+      },
+      "frac_any_speech": {
+        "mean": 0.723,
+        "sem_over_seeds": 0.012,
+        "per_seed": [
+          0.723,
+          0.745,
+          0.702
+        ]
+      },
+      "response_latency_slots": {
+        "mean": 0.07,
+        "sem_over_seeds": 0.003,
+        "per_seed": [
+          0.076,
+          0.067,
+          0.066
+        ]
+      }
+    },
+    "B:prior:thresh|0.15": {
+      "cost": {
+        "mean": 53.286,
+        "sem_over_seeds": 1.976,
+        "per_seed": [
+          55.368,
+          55.156,
+          49.336
+        ]
+      },
+      "cost_sem": {
+        "mean": 2.132,
+        "sem_over_seeds": 0.11,
+        "per_seed": [
+          2.228,
+          2.254,
+          1.912
+        ]
+      },
+      "overlap_slots": {
+        "mean": 44.268,
+        "sem_over_seeds": 1.464,
+        "per_seed": [
+          46.17,
+          45.245,
+          41.39
+        ]
+      },
+      "bc_overlap_slots": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "gap_slots": {
+        "mean": 1.177,
+        "sem_over_seeds": 0.034,
+        "per_seed": [
+          1.165,
+          1.125,
+          1.24
+        ]
+      },
+      "dead_air_slots": {
+        "mean": 5.687,
+        "sem_over_seeds": 0.584,
+        "per_seed": [
+          6.13,
+          4.53,
+          6.4
+        ]
+      },
+      "irrelevant_slots": {
+        "mean": 17.168,
+        "sem_over_seeds": 1.536,
+        "per_seed": [
+          17.255,
+          19.785,
+          14.465
+        ]
+      },
+      "bargein": {
+        "mean": 0.493,
+        "sem_over_seeds": 0.047,
+        "per_seed": [
+          0.53,
+          0.55,
+          0.4
+        ]
+      },
+      "turn_abandon": {
+        "mean": 0.605,
+        "sem_over_seeds": 0.015,
+        "per_seed": [
+          0.62,
+          0.62,
+          0.575
+        ]
+      },
+      "reprompt": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "frac_silent": {
+        "mean": 0.437,
+        "sem_over_seeds": 0.015,
+        "per_seed": [
+          0.436,
+          0.411,
+          0.464
+        ]
+      },
+      "frac_backchannel": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "frac_speak": {
+        "mean": 0.014,
+        "sem_over_seeds": 0.005,
+        "per_seed": [
+          0.011,
+          0.008,
+          0.023
+        ]
+      },
+      "frac_speak_slow": {
+        "mean": 0.258,
+        "sem_over_seeds": 0.042,
+        "per_seed": [
+          0.227,
+          0.341,
+          0.206
+        ]
+      },
+      "frac_speak_fast": {
+        "mean": 0.29,
+        "sem_over_seeds": 0.026,
+        "per_seed": [
+          0.326,
+          0.239,
+          0.306
+        ]
+      },
+      "frac_any_speech": {
+        "mean": 0.563,
+        "sem_over_seeds": 0.015,
+        "per_seed": [
+          0.564,
+          0.589,
+          0.536
+        ]
+      },
+      "response_latency_slots": {
+        "mean": 1.062,
+        "sem_over_seeds": 0.12,
+        "per_seed": [
+          1.008,
+          0.886,
+          1.291
+        ]
+      }
+    },
+    "B:prior:thresh|0.2": {
+      "cost": {
+        "mean": 37.362,
+        "sem_over_seeds": 0.556,
+        "per_seed": [
+          38.462,
+          36.674,
+          36.949
+        ]
+      },
+      "cost_sem": {
+        "mean": 1.66,
+        "sem_over_seeds": 0.17,
+        "per_seed": [
+          1.999,
+          1.474,
+          1.507
+        ]
+      },
+      "overlap_slots": {
+        "mean": 30.932,
+        "sem_over_seeds": 0.443,
+        "per_seed": [
+          31.805,
+          30.37,
+          30.62
+        ]
+      },
+      "bc_overlap_slots": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "gap_slots": {
+        "mean": 2.81,
+        "sem_over_seeds": 0.008,
+        "per_seed": [
+          2.815,
+          2.795,
+          2.82
+        ]
+      },
+      "dead_air_slots": {
+        "mean": 8.428,
+        "sem_over_seeds": 0.08,
+        "per_seed": [
+          8.53,
+          8.27,
+          8.485
+        ]
+      },
+      "irrelevant_slots": {
+        "mean": 6.823,
+        "sem_over_seeds": 0.737,
+        "per_seed": [
+          8.195,
+          5.67,
+          6.605
+        ]
+      },
+      "bargein": {
+        "mean": 0.557,
+        "sem_over_seeds": 0.051,
+        "per_seed": [
+          0.485,
+          0.655,
+          0.53
+        ]
+      },
+      "turn_abandon": {
+        "mean": 0.607,
+        "sem_over_seeds": 0.006,
+        "per_seed": [
+          0.595,
+          0.615,
+          0.61
+        ]
+      },
+      "reprompt": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "frac_silent": {
+        "mean": 0.524,
+        "sem_over_seeds": 0.005,
+        "per_seed": [
+          0.514,
+          0.526,
+          0.531
+        ]
+      },
+      "frac_backchannel": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "frac_speak": {
+        "mean": 0.01,
+        "sem_over_seeds": 0.005,
+        "per_seed": [
+          0.01,
+          0.003,
+          0.018
+        ]
+      },
+      "frac_speak_slow": {
+        "mean": 0.277,
+        "sem_over_seeds": 0.044,
+        "per_seed": [
+          0.288,
+          0.347,
+          0.195
+        ]
+      },
+      "frac_speak_fast": {
+        "mean": 0.189,
+        "sem_over_seeds": 0.038,
+        "per_seed": [
+          0.188,
+          0.124,
+          0.256
+        ]
+      },
+      "frac_any_speech": {
+        "mean": 0.476,
+        "sem_over_seeds": 0.005,
+        "per_seed": [
+          0.486,
+          0.474,
+          0.469
+        ]
+      },
+      "response_latency_slots": {
+        "mean": 2.181,
+        "sem_over_seeds": 0.052,
+        "per_seed": [
+          2.116,
+          2.143,
+          2.283
+        ]
+      }
+    },
+    "B:prior:thresh|0.25": {
+      "cost": {
+        "mean": 29.843,
+        "sem_over_seeds": 0.796,
+        "per_seed": [
+          28.979,
+          31.434,
+          29.116
+        ]
+      },
+      "cost_sem": {
+        "mean": 1.413,
+        "sem_over_seeds": 0.031,
+        "per_seed": [
+          1.442,
+          1.447,
+          1.35
+        ]
+      },
+      "overlap_slots": {
+        "mean": 24.557,
+        "sem_over_seeds": 0.667,
+        "per_seed": [
+          23.66,
+          25.86,
+          24.15
+        ]
+      },
+      "bc_overlap_slots": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "gap_slots": {
+        "mean": 4.263,
+        "sem_over_seeds": 0.092,
+        "per_seed": [
+          4.26,
+          4.105,
+          4.425
+        ]
+      },
+      "dead_air_slots": {
+        "mean": 10.477,
+        "sem_over_seeds": 0.168,
+        "per_seed": [
+          10.16,
+          10.54,
+          10.73
+        ]
+      },
+      "irrelevant_slots": {
+        "mean": 3.41,
+        "sem_over_seeds": 0.116,
+        "per_seed": [
+          3.64,
+          3.27,
+          3.32
+        ]
+      },
+      "bargein": {
+        "mean": 0.563,
+        "sem_over_seeds": 0.052,
+        "per_seed": [
+          0.53,
+          0.665,
+          0.495
+        ]
+      },
+      "turn_abandon": {
+        "mean": 0.493,
+        "sem_over_seeds": 0.025,
+        "per_seed": [
+          0.505,
+          0.53,
+          0.445
+        ]
+      },
+      "reprompt": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "frac_silent": {
+        "mean": 0.581,
+        "sem_over_seeds": 0.007,
+        "per_seed": [
+          0.581,
+          0.568,
+          0.594
+        ]
+      },
+      "frac_backchannel": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "frac_speak": {
+        "mean": 0.022,
+        "sem_over_seeds": 0.011,
+        "per_seed": [
+          0.019,
+          0.005,
+          0.042
+        ]
+      },
+      "frac_speak_slow": {
+        "mean": 0.259,
+        "sem_over_seeds": 0.052,
+        "per_seed": [
+          0.247,
+          0.355,
+          0.176
+        ]
+      },
+      "frac_speak_fast": {
+        "mean": 0.138,
+        "sem_over_seeds": 0.034,
+        "per_seed": [
+          0.153,
+          0.072,
+          0.187
+        ]
+      },
+      "frac_any_speech": {
+        "mean": 0.419,
+        "sem_over_seeds": 0.007,
+        "per_seed": [
+          0.419,
+          0.432,
+          0.406
+        ]
+      },
+      "response_latency_slots": {
+        "mean": 3.319,
+        "sem_over_seeds": 0.145,
+        "per_seed": [
+          3.287,
+          3.086,
+          3.584
+        ]
+      }
+    },
+    "B:prior:thresh|0.3": {
+      "cost": {
+        "mean": 24.468,
+        "sem_over_seeds": 1.158,
+        "per_seed": [
+          23.26,
+          26.783,
+          23.362
+        ]
+      },
+      "cost_sem": {
+        "mean": 1.114,
+        "sem_over_seeds": 0.043,
+        "per_seed": [
+          1.03,
+          1.17,
+          1.141
+        ]
+      },
+      "overlap_slots": {
+        "mean": 19.542,
+        "sem_over_seeds": 1.072,
+        "per_seed": [
+          18.485,
+          21.685,
+          18.455
+        ]
+      },
+      "bc_overlap_slots": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "gap_slots": {
+        "mean": 6.965,
+        "sem_over_seeds": 0.347,
+        "per_seed": [
+          6.945,
+          6.375,
+          7.575
+        ]
+      },
+      "dead_air_slots": {
+        "mean": 12.275,
+        "sem_over_seeds": 0.285,
+        "per_seed": [
+          12.01,
+          11.97,
+          12.845
+        ]
+      },
+      "irrelevant_slots": {
+        "mean": 1.638,
+        "sem_over_seeds": 0.13,
+        "per_seed": [
+          1.475,
+          1.545,
+          1.895
+        ]
+      },
+      "bargein": {
+        "mean": 0.577,
+        "sem_over_seeds": 0.047,
+        "per_seed": [
+          0.52,
+          0.67,
+          0.54
+        ]
+      },
+      "turn_abandon": {
+        "mean": 0.403,
+        "sem_over_seeds": 0.019,
+        "per_seed": [
+          0.405,
+          0.435,
+          0.37
+        ]
+      },
+      "reprompt": {
+        "mean": 0.003,
+        "sem_over_seeds": 0.003,
+        "per_seed": [
+          0.01,
+          0.0,
+          0.0
+        ]
+      },
+      "frac_silent": {
+        "mean": 0.627,
+        "sem_over_seeds": 0.012,
+        "per_seed": [
+          0.63,
+          0.605,
+          0.645
+        ]
+      },
+      "frac_backchannel": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "frac_speak": {
+        "mean": 0.041,
+        "sem_over_seeds": 0.013,
+        "per_seed": [
+          0.044,
+          0.017,
+          0.062
+        ]
+      },
+      "frac_speak_slow": {
+        "mean": 0.227,
+        "sem_over_seeds": 0.053,
+        "per_seed": [
+          0.205,
+          0.329,
+          0.148
+        ]
+      },
+      "frac_speak_fast": {
+        "mean": 0.105,
+        "sem_over_seeds": 0.029,
+        "per_seed": [
+          0.121,
+          0.049,
+          0.144
+        ]
+      },
+      "frac_any_speech": {
+        "mean": 0.373,
+        "sem_over_seeds": 0.012,
+        "per_seed": [
+          0.37,
+          0.395,
+          0.355
+        ]
+      },
+      "response_latency_slots": {
+        "mean": 5.013,
+        "sem_over_seeds": 0.278,
+        "per_seed": [
+          4.811,
+          4.666,
+          5.563
+        ]
+      }
+    },
+    "B:prior:thresh|0.4": {
+      "cost": {
+        "mean": 14.051,
+        "sem_over_seeds": 0.846,
+        "per_seed": [
+          13.561,
+          15.697,
+          12.894
+        ]
+      },
+      "cost_sem": {
+        "mean": 0.636,
+        "sem_over_seeds": 0.007,
+        "per_seed": [
+          0.641,
+          0.622,
+          0.644
+        ]
+      },
+      "overlap_slots": {
+        "mean": 6.802,
+        "sem_over_seeds": 0.848,
+        "per_seed": [
+          5.15,
+          7.96,
+          7.295
+        ]
+      },
+      "bc_overlap_slots": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "gap_slots": {
+        "mean": 24.895,
+        "sem_over_seeds": 4.071,
+        "per_seed": [
+          30.715,
+          26.915,
+          17.055
+        ]
+      },
+      "dead_air_slots": {
+        "mean": 14.103,
+        "sem_over_seeds": 0.351,
+        "per_seed": [
+          14.25,
+          13.435,
+          14.625
+        ]
+      },
+      "irrelevant_slots": {
+        "mean": 0.622,
+        "sem_over_seeds": 0.122,
+        "per_seed": [
+          0.505,
+          0.495,
+          0.865
+        ]
+      },
+      "bargein": {
+        "mean": 0.407,
+        "sem_over_seeds": 0.068,
+        "per_seed": [
+          0.275,
+          0.445,
+          0.5
+        ]
+      },
+      "turn_abandon": {
+        "mean": 0.205,
+        "sem_over_seeds": 0.006,
+        "per_seed": [
+          0.215,
+          0.205,
+          0.195
+        ]
+      },
+      "reprompt": {
+        "mean": 0.33,
+        "sem_over_seeds": 0.125,
+        "per_seed": [
+          0.51,
+          0.39,
+          0.09
+        ]
+      },
+      "frac_silent": {
+        "mean": 0.767,
+        "sem_over_seeds": 0.02,
+        "per_seed": [
+          0.805,
+          0.759,
+          0.737
+        ]
+      },
+      "frac_backchannel": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "frac_speak": {
+        "mean": 0.072,
+        "sem_over_seeds": 0.027,
+        "per_seed": [
+          0.101,
+          0.018,
+          0.097
+        ]
+      },
+      "frac_speak_slow": {
+        "mean": 0.101,
+        "sem_over_seeds": 0.05,
+        "per_seed": [
+          0.03,
+          0.196,
+          0.076
+        ]
+      },
+      "frac_speak_fast": {
+        "mean": 0.06,
+        "sem_over_seeds": 0.018,
+        "per_seed": [
+          0.064,
+          0.026,
+          0.089
+        ]
+      },
+      "frac_any_speech": {
+        "mean": 0.233,
+        "sem_over_seeds": 0.02,
+        "per_seed": [
+          0.195,
+          0.241,
+          0.263
+        ]
+      },
+      "response_latency_slots": {
+        "mean": 8.792,
+        "sem_over_seeds": 0.39,
+        "per_seed": [
+          8.325,
+          8.484,
+          9.568
+        ]
+      }
+    },
+    "B:prior:thresh|0.5": {
+      "cost": {
+        "mean": 16.457,
+        "sem_over_seeds": 0.825,
+        "per_seed": [
+          17.644,
+          16.856,
+          14.87
+        ]
+      },
+      "cost_sem": {
+        "mean": 0.44,
+        "sem_over_seeds": 0.007,
+        "per_seed": [
+          0.427,
+          0.439,
+          0.453
+        ]
+      },
+      "overlap_slots": {
+        "mean": 0.435,
+        "sem_over_seeds": 0.035,
+        "per_seed": [
+          0.39,
+          0.41,
+          0.505
+        ]
+      },
+      "bc_overlap_slots": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "gap_slots": {
+        "mean": 68.223,
+        "sem_over_seeds": 3.592,
+        "per_seed": [
+          73.74,
+          69.45,
+          61.48
+        ]
+      },
+      "dead_air_slots": {
+        "mean": 12.21,
+        "sem_over_seeds": 0.338,
+        "per_seed": [
+          11.585,
+          12.3,
+          12.745
+        ]
+      },
+      "irrelevant_slots": {
+        "mean": 0.07,
+        "sem_over_seeds": 0.033,
+        "per_seed": [
+          0.03,
+          0.045,
+          0.135
+        ]
+      },
+      "bargein": {
+        "mean": 0.078,
+        "sem_over_seeds": 0.022,
+        "per_seed": [
+          0.04,
+          0.08,
+          0.115
+        ]
+      },
+      "turn_abandon": {
+        "mean": 0.025,
+        "sem_over_seeds": 0.005,
+        "per_seed": [
+          0.02,
+          0.035,
+          0.02
+        ]
+      },
+      "reprompt": {
+        "mean": 1.633,
+        "sem_over_seeds": 0.129,
+        "per_seed": [
+          1.815,
+          1.7,
+          1.385
+        ]
+      },
+      "frac_silent": {
+        "mean": 0.965,
+        "sem_over_seeds": 0.013,
+        "per_seed": [
+          0.984,
+          0.972,
+          0.94
+        ]
+      },
+      "frac_backchannel": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "frac_speak": {
+        "mean": 0.015,
+        "sem_over_seeds": 0.009,
+        "per_seed": [
+          0.013,
+          0.001,
+          0.031
+        ]
+      },
+      "frac_speak_slow": {
+        "mean": 0.016,
+        "sem_over_seeds": 0.008,
+        "per_seed": [
+          0.001,
+          0.027,
+          0.019
+        ]
+      },
+      "frac_speak_fast": {
+        "mean": 0.004,
+        "sem_over_seeds": 0.003,
+        "per_seed": [
+          0.003,
+          0.0,
+          0.01
+        ]
+      },
+      "frac_any_speech": {
+        "mean": 0.035,
+        "sem_over_seeds": 0.013,
+        "per_seed": [
+          0.016,
+          0.028,
+          0.06
+        ]
+      },
+      "response_latency_slots": {
+        "mean": 12.032,
+        "sem_over_seeds": 0.91,
+        "per_seed": [
+          11.2,
+          11.046,
+          13.85
+        ]
+      }
+    },
+    "B:prior:greedy|tuned": {
+      "cost": {
+        "mean": 17.952,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          17.952,
+          17.952,
+          17.952
+        ]
+      },
+      "cost_sem": {
+        "mean": 0.405,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.405,
+          0.405,
+          0.405
+        ]
+      },
+      "overlap_slots": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "bc_overlap_slots": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "gap_slots": {
+        "mean": 77.045,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          77.045,
+          77.045,
+          77.045
+        ]
+      },
+      "dead_air_slots": {
+        "mean": 11.505,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          11.505,
+          11.505,
+          11.505
+        ]
+      },
+      "irrelevant_slots": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "bargein": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "turn_abandon": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "reprompt": {
+        "mean": 1.94,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          1.94,
+          1.94,
+          1.94
+        ]
+      },
+      "frac_silent": {
+        "mean": 1.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "frac_backchannel": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "frac_speak": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "frac_speak_slow": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "frac_speak_fast": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "frac_any_speech": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "response_latency_slots": {
+        "mean": NaN,
+        "sem_over_seeds": NaN,
+        "per_seed": [
+          NaN,
+          NaN,
+          NaN
+        ]
+      },
+      "chosen": [
+        "prior:greedy",
+        "prior:greedy",
+        "prior:greedy"
+      ]
+    },
+    "B:prior:sample|tuned": {
+      "cost": {
+        "mean": 23.566,
+        "sem_over_seeds": 0.084,
+        "per_seed": [
+          23.724,
+          23.533,
+          23.44
+        ]
+      },
+      "cost_sem": {
+        "mean": 0.562,
+        "sem_over_seeds": 0.015,
+        "per_seed": [
+          0.553,
+          0.541,
+          0.592
+        ]
+      },
+      "overlap_slots": {
+        "mean": 16.793,
+        "sem_over_seeds": 0.092,
+        "per_seed": [
+          16.815,
+          16.94,
+          16.625
+        ]
+      },
+      "bc_overlap_slots": {
+        "mean": 9.277,
+        "sem_over_seeds": 0.378,
+        "per_seed": [
+          8.545,
+          9.805,
+          9.48
+        ]
+      },
+      "gap_slots": {
+        "mean": 10.982,
+        "sem_over_seeds": 0.197,
+        "per_seed": [
+          10.815,
+          10.755,
+          11.375
+        ]
+      },
+      "dead_air_slots": {
+        "mean": 5.105,
+        "sem_over_seeds": 0.122,
+        "per_seed": [
+          4.875,
+          5.15,
+          5.29
+        ]
+      },
+      "irrelevant_slots": {
+        "mean": 2.94,
+        "sem_over_seeds": 0.084,
+        "per_seed": [
+          3.095,
+          2.805,
+          2.92
+        ]
+      },
+      "bargein": {
+        "mean": 0.545,
+        "sem_over_seeds": 0.033,
+        "per_seed": [
+          0.61,
+          0.515,
+          0.51
+        ]
+      },
+      "turn_abandon": {
+        "mean": 0.49,
+        "sem_over_seeds": 0.015,
+        "per_seed": [
+          0.51,
+          0.46,
+          0.5
+        ]
+      },
+      "reprompt": {
+        "mean": 0.003,
+        "sem_over_seeds": 0.003,
+        "per_seed": [
+          0.0,
+          0.01,
+          0.0
+        ]
+      },
+      "frac_silent": {
+        "mean": 0.499,
+        "sem_over_seeds": 0.001,
+        "per_seed": [
+          0.5,
+          0.497,
+          0.502
+        ]
+      },
+      "frac_backchannel": {
+        "mean": 0.109,
+        "sem_over_seeds": 0.003,
+        "per_seed": [
+          0.104,
+          0.113,
+          0.11
+        ]
+      },
+      "frac_speak": {
+        "mean": 0.134,
+        "sem_over_seeds": 0.005,
+        "per_seed": [
+          0.143,
+          0.126,
+          0.132
+        ]
+      },
+      "frac_speak_slow": {
+        "mean": 0.128,
+        "sem_over_seeds": 0.008,
+        "per_seed": [
+          0.129,
+          0.141,
+          0.114
+        ]
+      },
+      "frac_speak_fast": {
+        "mean": 0.13,
+        "sem_over_seeds": 0.006,
+        "per_seed": [
+          0.124,
+          0.123,
+          0.143
+        ]
+      },
+      "frac_any_speech": {
+        "mean": 0.391,
+        "sem_over_seeds": 0.002,
+        "per_seed": [
+          0.396,
+          0.39,
+          0.388
+        ]
+      },
+      "response_latency_slots": {
+        "mean": 2.754,
+        "sem_over_seeds": 0.131,
+        "per_seed": [
+          2.878,
+          2.892,
+          2.491
+        ]
+      },
+      "chosen": [
+        "prior:sample",
+        "prior:sample",
+        "prior:sample"
+      ]
+    },
+    "B:prior:thresh|tuned": {
+      "cost": {
+        "mean": 14.437,
+        "sem_over_seeds": 1.225,
+        "per_seed": [
+          13.561,
+          16.856,
+          12.894
+        ]
+      },
+      "cost_sem": {
+        "mean": 0.575,
+        "sem_over_seeds": 0.068,
+        "per_seed": [
+          0.641,
+          0.439,
+          0.644
+        ]
+      },
+      "overlap_slots": {
+        "mean": 4.285,
+        "sem_over_seeds": 2.034,
+        "per_seed": [
+          5.15,
+          0.41,
+          7.295
+        ]
+      },
+      "bc_overlap_slots": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "gap_slots": {
+        "mean": 39.073,
+        "sem_over_seeds": 15.692,
+        "per_seed": [
+          30.715,
+          69.45,
+          17.055
+        ]
+      },
+      "dead_air_slots": {
+        "mean": 13.725,
+        "sem_over_seeds": 0.721,
+        "per_seed": [
+          14.25,
+          12.3,
+          14.625
+        ]
+      },
+      "irrelevant_slots": {
+        "mean": 0.472,
+        "sem_over_seeds": 0.237,
+        "per_seed": [
+          0.505,
+          0.045,
+          0.865
+        ]
+      },
+      "bargein": {
+        "mean": 0.285,
+        "sem_over_seeds": 0.121,
+        "per_seed": [
+          0.275,
+          0.08,
+          0.5
+        ]
+      },
+      "turn_abandon": {
+        "mean": 0.148,
+        "sem_over_seeds": 0.057,
+        "per_seed": [
+          0.215,
+          0.035,
+          0.195
+        ]
+      },
+      "reprompt": {
+        "mean": 0.767,
+        "sem_over_seeds": 0.482,
+        "per_seed": [
+          0.51,
+          1.7,
+          0.09
+        ]
+      },
+      "frac_silent": {
+        "mean": 0.838,
+        "sem_over_seeds": 0.07,
+        "per_seed": [
+          0.805,
+          0.972,
+          0.737
+        ]
+      },
+      "frac_backchannel": {
+        "mean": 0.0,
+        "sem_over_seeds": 0.0,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "frac_speak": {
+        "mean": 0.066,
+        "sem_over_seeds": 0.033,
+        "per_seed": [
+          0.101,
+          0.001,
+          0.097
+        ]
+      },
+      "frac_speak_slow": {
+        "mean": 0.044,
+        "sem_over_seeds": 0.016,
+        "per_seed": [
+          0.03,
+          0.027,
+          0.076
+        ]
+      },
+      "frac_speak_fast": {
+        "mean": 0.051,
+        "sem_over_seeds": 0.027,
+        "per_seed": [
+          0.064,
+          0.0,
+          0.089
+        ]
+      },
+      "frac_any_speech": {
+        "mean": 0.162,
+        "sem_over_seeds": 0.07,
+        "per_seed": [
+          0.195,
+          0.028,
+          0.263
+        ]
+      },
+      "response_latency_slots": {
+        "mean": 9.646,
+        "sem_over_seeds": 0.786,
+        "per_seed": [
+          8.325,
+          11.046,
+          9.568
+        ]
+      },
+      "chosen": [
+        "prior:thresh|0.4",
+        "prior:thresh|0.5",
+        "prior:thresh|0.4"
+      ]
+    },
+    "Bcrit:rif:beta|0.0": {
+      "cost": {
+        "mean": 11.068,
+        "sem_over_seeds": 1.239,
+        "per_seed": [
+          9.712,
+          13.542,
+          9.95
+        ]
+      },
+      "cost_sem": {
+        "mean": 0.397,
+        "sem_over_seeds": 0.024,
+        "per_seed": [
+          0.386,
+          0.444,
+          0.362
+        ]
+      },
+      "overlap_slots": {
+        "mean": 0.588,
+        "sem_over_seeds": 0.148,
+        "per_seed": [
+          0.7,
+          0.295,
+          0.77
+        ]
+      },
+      "bc_overlap_slots": {
+        "mean": 0.61,
+        "sem_over_seeds": 0.428,
+        "per_seed": [
+          0.0,
+          0.395,
+          1.435
+        ]
+      },
+      "gap_slots": {
+        "mean": 38.49,
+        "sem_over_seeds": 7.381,
+        "per_seed": [
+          30.695,
+          53.245,
+          31.53
+        ]
+      },
+      "dead_air_slots": {
+        "mean": 6.235,
+        "sem_over_seeds": 1.751,
+        "per_seed": [
+          8.58,
+          7.315,
+          2.81
+        ]
+      },
+      "irrelevant_slots": {
+        "mean": 0.295,
+        "sem_over_seeds": 0.048,
+        "per_seed": [
+          0.33,
+          0.2,
+          0.355
+        ]
+      },
+      "bargein": {
+        "mean": 0.373,
+        "sem_over_seeds": 0.066,
+        "per_seed": [
+          0.395,
+          0.25,
+          0.475
+        ]
+      },
+      "turn_abandon": {
+        "mean": 0.193,
+        "sem_over_seeds": 0.044,
+        "per_seed": [
+          0.21,
+          0.11,
+          0.26
+        ]
+      },
+      "reprompt": {
+        "mean": 0.908,
+        "sem_over_seeds": 0.189,
+        "per_seed": [
+          0.75,
+          1.285,
+          0.69
+        ]
+      },
+      "frac_silent": {
+        "mean": 0.745,
+        "sem_over_seeds": 0.041,
+        "per_seed": [
+          0.761,
+          0.806,
+          0.667
+        ]
+      },
+      "frac_backchannel": {
+        "mean": 0.053,
+        "sem_over_seeds": 0.033,
+        "per_seed": [
+          0.0,
+          0.045,
+          0.115
+        ]
+      },
+      "frac_speak": {
+        "mean": 0.116,
+        "sem_over_seeds": 0.05,
+        "per_seed": [
+          0.182,
+          0.149,
+          0.018
+        ]
+      },
+      "frac_speak_slow": {
+        "mean": 0.022,
+        "sem_over_seeds": 0.018,
+        "per_seed": [
+          0.057,
+          0.0,
+          0.008
+        ]
+      },
+      "frac_speak_fast": {
+        "mean": 0.064,
+        "sem_over_seeds": 0.064,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.192
+        ]
+      },
+      "frac_any_speech": {
+        "mean": 0.202,
+        "sem_over_seeds": 0.027,
+        "per_seed": [
+          0.239,
+          0.149,
+          0.218
+        ]
+      },
+      "response_latency_slots": {
+        "mean": 1.671,
+        "sem_over_seeds": 0.717,
+        "per_seed": [
+          1.08,
+          3.098,
+          0.834
+        ]
+      }
+    },
+    "Bcrit:rif:beta|0.5": {
+      "cost": {
+        "mean": 11.152,
+        "sem_over_seeds": 1.134,
+        "per_seed": [
+          9.829,
+          13.409,
+          10.217
+        ]
+      },
+      "cost_sem": {
+        "mean": 0.39,
+        "sem_over_seeds": 0.03,
+        "per_seed": [
+          0.38,
+          0.446,
+          0.343
+        ]
+      },
+      "overlap_slots": {
+        "mean": 0.568,
+        "sem_over_seeds": 0.153,
+        "per_seed": [
+          0.64,
+          0.275,
+          0.79
+        ]
+      },
+      "bc_overlap_slots": {
+        "mean": 0.592,
+        "sem_over_seeds": 0.425,
+        "per_seed": [
+          0.0,
+          0.36,
+          1.415
+        ]
+      },
+      "gap_slots": {
+        "mean": 39.07,
+        "sem_over_seeds": 7.068,
+        "per_seed": [
+          30.95,
+          53.15,
+          33.11
+        ]
+      },
+      "dead_air_slots": {
+        "mean": 6.212,
+        "sem_over_seeds": 1.767,
+        "per_seed": [
+          8.48,
+          7.425,
+          2.73
+        ]
+      },
+      "irrelevant_slots": {
+        "mean": 0.3,
+        "sem_over_seeds": 0.046,
+        "per_seed": [
+          0.375,
+          0.215,
+          0.31
+        ]
+      },
+      "bargein": {
+        "mean": 0.348,
+        "sem_over_seeds": 0.061,
+        "per_seed": [
+          0.385,
+          0.23,
+          0.43
+        ]
+      },
+      "turn_abandon": {
+        "mean": 0.192,
+        "sem_over_seeds": 0.044,
+        "per_seed": [
+          0.225,
+          0.105,
+          0.245
+        ]
+      },
+      "reprompt": {
+        "mean": 0.933,
+        "sem_over_seeds": 0.169,
+        "per_seed": [
+          0.78,
+          1.27,
+          0.75
+        ]
+      },
+      "frac_silent": {
+        "mean": 0.742,
+        "sem_over_seeds": 0.042,
+        "per_seed": [
+          0.756,
+          0.806,
+          0.664
+        ]
+      },
+      "frac_backchannel": {
+        "mean": 0.054,
+        "sem_over_seeds": 0.035,
+        "per_seed": [
+          0.0,
+          0.043,
+          0.12
+        ]
+      },
+      "frac_speak": {
+        "mean": 0.125,
+        "sem_over_seeds": 0.055,
+        "per_seed": [
+          0.205,
+          0.151,
+          0.018
+        ]
+      },
+      "frac_speak_slow": {
+        "mean": 0.015,
+        "sem_over_seeds": 0.012,
+        "per_seed": [
+          0.039,
+          0.0,
+          0.006
+        ]
+      },
+      "frac_speak_fast": {
+        "mean": 0.064,
+        "sem_over_seeds": 0.064,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.192
+        ]
+      },
+      "frac_any_speech": {
+        "mean": 0.204,
+        "sem_over_seeds": 0.028,
+        "per_seed": [
+          0.244,
+          0.151,
+          0.216
+        ]
+      },
+      "response_latency_slots": {
+        "mean": 1.547,
+        "sem_over_seeds": 0.683,
+        "per_seed": [
+          0.892,
+          2.912,
+          0.838
+        ]
+      }
+    },
+    "Bcrit:rif:beta|1.0": {
+      "cost": {
+        "mean": 11.275,
+        "sem_over_seeds": 1.173,
+        "per_seed": [
+          9.832,
+          13.598,
+          10.395
+        ]
+      },
+      "cost_sem": {
+        "mean": 0.395,
+        "sem_over_seeds": 0.034,
+        "per_seed": [
+          0.385,
+          0.458,
+          0.343
+        ]
+      },
+      "overlap_slots": {
+        "mean": 0.557,
+        "sem_over_seeds": 0.168,
+        "per_seed": [
+          0.59,
+          0.25,
+          0.83
+        ]
+      },
+      "bc_overlap_slots": {
+        "mean": 0.597,
+        "sem_over_seeds": 0.423,
+        "per_seed": [
+          0.0,
+          0.375,
+          1.415
+        ]
+      },
+      "gap_slots": {
+        "mean": 39.448,
+        "sem_over_seeds": 7.426,
+        "per_seed": [
+          31.085,
+          54.26,
+          33.0
+        ]
+      },
+      "dead_air_slots": {
+        "mean": 6.428,
+        "sem_over_seeds": 1.848,
+        "per_seed": [
+          8.87,
+          7.61,
+          2.805
+        ]
+      },
+      "irrelevant_slots": {
+        "mean": 0.328,
+        "sem_over_seeds": 0.062,
+        "per_seed": [
+          0.385,
+          0.205,
+          0.395
+        ]
+      },
+      "bargein": {
+        "mean": 0.31,
+        "sem_over_seeds": 0.059,
+        "per_seed": [
+          0.315,
+          0.205,
+          0.41
+        ]
+      },
+      "turn_abandon": {
+        "mean": 0.207,
+        "sem_over_seeds": 0.051,
+        "per_seed": [
+          0.255,
+          0.105,
+          0.26
+        ]
+      },
+      "reprompt": {
+        "mean": 0.958,
+        "sem_over_seeds": 0.171,
+        "per_seed": [
+          0.79,
+          1.3,
+          0.785
+        ]
+      },
+      "frac_silent": {
+        "mean": 0.746,
+        "sem_over_seeds": 0.043,
+        "per_seed": [
+          0.759,
+          0.813,
+          0.665
+        ]
+      },
+      "frac_backchannel": {
+        "mean": 0.053,
+        "sem_over_seeds": 0.034,
+        "per_seed": [
+          0.0,
+          0.041,
+          0.117
+        ]
+      },
+      "frac_speak": {
+        "mean": 0.129,
+        "sem_over_seeds": 0.058,
+        "per_seed": [
+          0.22,
+          0.146,
+          0.02
+        ]
+      },
+      "frac_speak_slow": {
+        "mean": 0.008,
+        "sem_over_seeds": 0.006,
+        "per_seed": [
+          0.02,
+          0.0,
+          0.005
+        ]
+      },
+      "frac_speak_fast": {
+        "mean": 0.065,
+        "sem_over_seeds": 0.065,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.194
+        ]
+      },
+      "frac_any_speech": {
+        "mean": 0.202,
+        "sem_over_seeds": 0.029,
+        "per_seed": [
+          0.241,
+          0.146,
+          0.218
+        ]
+      },
+      "response_latency_slots": {
+        "mean": 1.562,
+        "sem_over_seeds": 0.678,
+        "per_seed": [
+          0.97,
+          2.915,
+          0.8
+        ]
+      }
+    },
+    "Bcrit:rif:beta|tuned": {
+      "cost": {
+        "mean": 11.108,
+        "sem_over_seeds": 1.218,
+        "per_seed": [
+          9.832,
+          13.542,
+          9.95
+        ]
+      },
+      "cost_sem": {
+        "mean": 0.397,
+        "sem_over_seeds": 0.024,
+        "per_seed": [
+          0.385,
+          0.444,
+          0.362
+        ]
+      },
+      "overlap_slots": {
+        "mean": 0.552,
+        "sem_over_seeds": 0.138,
+        "per_seed": [
+          0.59,
+          0.295,
+          0.77
+        ]
+      },
+      "bc_overlap_slots": {
+        "mean": 0.61,
+        "sem_over_seeds": 0.428,
+        "per_seed": [
+          0.0,
+          0.395,
+          1.435
+        ]
+      },
+      "gap_slots": {
+        "mean": 38.62,
+        "sem_over_seeds": 7.314,
+        "per_seed": [
+          31.085,
+          53.245,
+          31.53
+        ]
+      },
+      "dead_air_slots": {
+        "mean": 6.332,
+        "sem_over_seeds": 1.817,
+        "per_seed": [
+          8.87,
+          7.315,
+          2.81
+        ]
+      },
+      "irrelevant_slots": {
+        "mean": 0.313,
+        "sem_over_seeds": 0.057,
+        "per_seed": [
+          0.385,
+          0.2,
+          0.355
+        ]
+      },
+      "bargein": {
+        "mean": 0.347,
+        "sem_over_seeds": 0.067,
+        "per_seed": [
+          0.315,
+          0.25,
+          0.475
+        ]
+      },
+      "turn_abandon": {
+        "mean": 0.208,
+        "sem_over_seeds": 0.049,
+        "per_seed": [
+          0.255,
+          0.11,
+          0.26
+        ]
+      },
+      "reprompt": {
+        "mean": 0.922,
+        "sem_over_seeds": 0.184,
+        "per_seed": [
+          0.79,
+          1.285,
+          0.69
+        ]
+      },
+      "frac_silent": {
+        "mean": 0.744,
+        "sem_over_seeds": 0.041,
+        "per_seed": [
+          0.759,
+          0.806,
+          0.667
+        ]
+      },
+      "frac_backchannel": {
+        "mean": 0.053,
+        "sem_over_seeds": 0.033,
+        "per_seed": [
+          0.0,
+          0.045,
+          0.115
+        ]
+      },
+      "frac_speak": {
+        "mean": 0.129,
+        "sem_over_seeds": 0.059,
+        "per_seed": [
+          0.22,
+          0.149,
+          0.018
+        ]
+      },
+      "frac_speak_slow": {
+        "mean": 0.009,
+        "sem_over_seeds": 0.006,
+        "per_seed": [
+          0.02,
+          0.0,
+          0.008
+        ]
+      },
+      "frac_speak_fast": {
+        "mean": 0.064,
+        "sem_over_seeds": 0.064,
+        "per_seed": [
+          0.0,
+          0.0,
+          0.192
+        ]
+      },
+      "frac_any_speech": {
+        "mean": 0.203,
+        "sem_over_seeds": 0.028,
+        "per_seed": [
+          0.241,
+          0.149,
+          0.218
+        ]
+      },
+      "response_latency_slots": {
+        "mean": 1.634,
+        "sem_over_seeds": 0.733,
+        "per_seed": [
+          0.97,
+          3.098,
+          0.834
+        ]
+      },
+      "chosen": [
+        "rif:beta|1.0",
+        "rif:beta|0.0",
+        "rif:beta|0.0"
+      ]
+    },
+    "C:rif:beta|0.0": {
+      "cost": {
+        "mean": 7.073,
+        "sem_over_seeds": 0.339,
+        "per_seed": [
+          6.696,
+          6.772,
+          7.75
+        ]
+      },
+      "cost_sem": {
+        "mean": 0.288,
+        "sem_over_seeds": 0.002,
+        "per_seed": [
+          0.288,
+          0.291,
+          0.285
+        ]
+      },
+      "overlap_slots": {
+        "mean": 0.863,
+        "sem_over_seeds": 0.061,
+        "per_seed": [
+          0.86,
+          0.76,
+          0.97
+        ]
+      },
+      "bc_overlap_slots": {
+        "mean": 1.733,
+        "sem_over_seeds": 0.683,
+        "per_seed": [
+          0.465,
+          1.93,
+          2.805
+        ]
+      },
+      "gap_slots": {
+        "mean": 19.52,
+        "sem_over_seeds": 0.623,
+        "per_seed": [
+          18.275,
+          20.12,
+          20.165
+        ]
+      },
+      "dead_air_slots": {
+        "mean": 2.753,
+        "sem_over_seeds": 0.201,
+        "per_seed": [
+          3.15,
+          2.61,
+          2.5
+        ]
+      },
+      "irrelevant_slots": {
+        "mean": 0.435,
+        "sem_over_seeds": 0.15,
+        "per_seed": [
+          0.57,
+          0.135,
+          0.6
+        ]
+      },
+      "bargein": {
+        "mean": 0.457,
+        "sem_over_seeds": 0.068,
+        "per_seed": [
+          0.355,
+          0.43,
+          0.585
+        ]
+      },
+      "turn_abandon": {
+        "mean": 0.277,
+        "sem_over_seeds": 0.013,
+        "per_seed": [
+          0.3,
+          0.255,
+          0.275
+        ]
+      },
+      "reprompt": {
+        "mean": 0.273,
+        "sem_over_seeds": 0.015,
+        "per_seed": [
+          0.27,
+          0.25,
+          0.3
+        ]
+      },
+      "frac_silent": {
+        "mean": 0.673,
+        "sem_over_seeds": 0.013,
+        "per_seed": [
+          0.674,
+          0.65,
+          0.695
+        ]
+      },
+      "frac_backchannel": {
+        "mean": 0.053,
+        "sem_over_seeds": 0.013,
+        "per_seed": [
+          0.03,
+          0.076,
+          0.052
+        ]
+      },
+      "frac_speak": {
+        "mean": 0.174,
+        "sem_over_seeds": 0.082,
+        "per_seed": [
+          0.289,
+          0.218,
+          0.014
+        ]
+      },
+      "frac_speak_slow": {
+        "mean": 0.001,
+        "sem_over_seeds": 0.001,
+        "per_seed": [
+          0.0,
+          0.002,
+          0.0
+        ]
+      },
+      "frac_speak_fast": {
+        "mean": 0.099,
+        "sem_over_seeds": 0.071,
+        "per_seed": [
+          0.006,
+          0.053,
+          0.239
+        ]
+      },
+      "frac_any_speech": {
+        "mean": 0.274,
+        "sem_over_seeds": 0.012,
+        "per_seed": [
+          0.295,
+          0.274,
+          0.253
+        ]
+      },
+      "response_latency_slots": {
+        "mean": 0.734,
+        "sem_over_seeds": 0.051,
+        "per_seed": [
+          0.771,
+          0.798,
+          0.632
+        ]
+      }
+    },
+    "C:rif:beta|0.5": {
+      "cost": {
+        "mean": 7.079,
+        "sem_over_seeds": 0.427,
+        "per_seed": [
+          6.549,
+          6.763,
+          7.925
+        ]
+      },
+      "cost_sem": {
+        "mean": 0.286,
+        "sem_over_seeds": 0.002,
+        "per_seed": [
+          0.288,
+          0.281,
+          0.288
+        ]
+      },
+      "overlap_slots": {
+        "mean": 0.855,
+        "sem_over_seeds": 0.026,
+        "per_seed": [
+          0.865,
+          0.805,
+          0.895
+        ]
+      },
+      "bc_overlap_slots": {
+        "mean": 1.612,
+        "sem_over_seeds": 0.634,
+        "per_seed": [
+          0.455,
+          1.74,
+          2.64
+        ]
+      },
+      "gap_slots": {
+        "mean": 19.557,
+        "sem_over_seeds": 0.91,
+        "per_seed": [
+          17.87,
+          19.81,
+          20.99
+        ]
+      },
+      "dead_air_slots": {
+        "mean": 2.797,
+        "sem_over_seeds": 0.248,
+        "per_seed": [
+          3.245,
+          2.755,
+          2.39
+        ]
+      },
+      "irrelevant_slots": {
+        "mean": 0.42,
+        "sem_over_seeds": 0.128,
+        "per_seed": [
+          0.52,
+          0.165,
+          0.575
+        ]
+      },
+      "bargein": {
+        "mean": 0.443,
+        "sem_over_seeds": 0.056,
+        "per_seed": [
+          0.35,
+          0.435,
+          0.545
+        ]
+      },
+      "turn_abandon": {
+        "mean": 0.292,
+        "sem_over_seeds": 0.013,
+        "per_seed": [
+          0.29,
+          0.27,
+          0.315
+        ]
+      },
+      "reprompt": {
+        "mean": 0.27,
+        "sem_over_seeds": 0.029,
+        "per_seed": [
+          0.26,
+          0.225,
+          0.325
+        ]
+      },
+      "frac_silent": {
+        "mean": 0.673,
+        "sem_over_seeds": 0.01,
+        "per_seed": [
+          0.672,
+          0.656,
+          0.691
+        ]
+      },
+      "frac_backchannel": {
+        "mean": 0.053,
+        "sem_over_seeds": 0.011,
+        "per_seed": [
+          0.035,
+          0.073,
+          0.051
+        ]
+      },
+      "frac_speak": {
+        "mean": 0.171,
+        "sem_over_seeds": 0.081,
+        "per_seed": [
+          0.286,
+          0.212,
+          0.015
+        ]
+      },
+      "frac_speak_slow": {
+        "mean": 0.001,
+        "sem_over_seeds": 0.001,
+        "per_seed": [
+          0.0,
+          0.003,
+          0.0
+        ]
+      },
+      "frac_speak_fast": {
+        "mean": 0.102,
+        "sem_over_seeds": 0.072,
+        "per_seed": [
+          0.007,
+          0.056,
+          0.243
+        ]
+      },
+      "frac_any_speech": {
+        "mean": 0.274,
+        "sem_over_seeds": 0.01,
+        "per_seed": [
+          0.293,
+          0.271,
+          0.258
+        ]
+      },
+      "response_latency_slots": {
+        "mean": 0.721,
+        "sem_over_seeds": 0.1,
+        "per_seed": [
+          0.701,
+          0.904,
+          0.558
+        ]
+      }
+    },
+    "C:rif:beta|1.0": {
+      "cost": {
+        "mean": 7.205,
+        "sem_over_seeds": 0.363,
+        "per_seed": [
+          6.651,
+          7.075,
+          7.888
+        ]
+      },
+      "cost_sem": {
+        "mean": 0.283,
+        "sem_over_seeds": 0.001,
+        "per_seed": [
+          0.281,
+          0.282,
+          0.285
+        ]
+      },
+      "overlap_slots": {
+        "mean": 0.892,
+        "sem_over_seeds": 0.024,
+        "per_seed": [
+          0.925,
+          0.845,
+          0.905
+        ]
+      },
+      "bc_overlap_slots": {
+        "mean": 1.688,
+        "sem_over_seeds": 0.631,
+        "per_seed": [
+          0.51,
+          1.885,
+          2.67
+        ]
+      },
+      "gap_slots": {
+        "mean": 19.775,
+        "sem_over_seeds": 0.997,
+        "per_seed": [
+          17.785,
+          20.885,
+          20.655
+        ]
+      },
+      "dead_air_slots": {
+        "mean": 2.823,
+        "sem_over_seeds": 0.176,
+        "per_seed": [
+          3.15,
+          2.775,
+          2.545
+        ]
+      },
+      "irrelevant_slots": {
+        "mean": 0.457,
+        "sem_over_seeds": 0.143,
+        "per_seed": [
+          0.515,
+          0.185,
+          0.67
+        ]
+      },
+      "bargein": {
+        "mean": 0.445,
+        "sem_over_seeds": 0.051,
+        "per_seed": [
+          0.375,
+          0.415,
+          0.545
+        ]
+      },
+      "turn_abandon": {
+        "mean": 0.31,
+        "sem_over_seeds": 0.009,
+        "per_seed": [
+          0.31,
+          0.295,
+          0.325
+        ]
+      },
+      "reprompt": {
+        "mean": 0.257,
+        "sem_over_seeds": 0.022,
+        "per_seed": [
+          0.235,
+          0.235,
+          0.3
+        ]
+      },
+      "frac_silent": {
+        "mean": 0.67,
+        "sem_over_seeds": 0.01,
+        "per_seed": [
+          0.668,
+          0.654,
+          0.687
+        ]
+      },
+      "frac_backchannel": {
+        "mean": 0.054,
+        "sem_over_seeds": 0.009,
+        "per_seed": [
+          0.039,
+          0.07,
+          0.054
+        ]
+      },
+      "frac_speak": {
+        "mean": 0.171,
+        "sem_over_seeds": 0.081,
+        "per_seed": [
+          0.285,
+          0.212,
+          0.015
+        ]
+      },
+      "frac_speak_slow": {
+        "mean": 0.001,
+        "sem_over_seeds": 0.001,
+        "per_seed": [
+          0.0,
+          0.004,
+          0.0
+        ]
+      },
+      "frac_speak_fast": {
+        "mean": 0.104,
+        "sem_over_seeds": 0.072,
+        "per_seed": [
+          0.008,
+          0.06,
+          0.244
+        ]
+      },
+      "frac_any_speech": {
+        "mean": 0.276,
+        "sem_over_seeds": 0.01,
+        "per_seed": [
+          0.293,
+          0.276,
+          0.26
+        ]
+      },
+      "response_latency_slots": {
+        "mean": 0.817,
+        "sem_over_seeds": 0.187,
+        "per_seed": [
+          0.69,
+          1.185,
+          0.575
+        ]
+      }
+    },
+    "C:rif:beta|tuned": {
+      "cost": {
+        "mean": 7.119,
+        "sem_over_seeds": 0.385,
+        "per_seed": [
+          6.696,
+          6.772,
+          7.888
+        ]
+      },
+      "cost_sem": {
+        "mean": 0.288,
+        "sem_over_seeds": 0.002,
+        "per_seed": [
+          0.288,
+          0.291,
+          0.285
+        ]
+      },
+      "overlap_slots": {
+        "mean": 0.842,
+        "sem_over_seeds": 0.043,
+        "per_seed": [
+          0.86,
+          0.76,
+          0.905
+        ]
+      },
+      "bc_overlap_slots": {
+        "mean": 1.688,
+        "sem_over_seeds": 0.648,
+        "per_seed": [
+          0.465,
+          1.93,
+          2.67
+        ]
+      },
+      "gap_slots": {
+        "mean": 19.683,
+        "sem_over_seeds": 0.721,
+        "per_seed": [
+          18.275,
+          20.12,
+          20.655
+        ]
+      },
+      "dead_air_slots": {
+        "mean": 2.768,
+        "sem_over_seeds": 0.192,
+        "per_seed": [
+          3.15,
+          2.61,
+          2.545
+        ]
+      },
+      "irrelevant_slots": {
+        "mean": 0.458,
+        "sem_over_seeds": 0.164,
+        "per_seed": [
+          0.57,
+          0.135,
+          0.67
+        ]
+      },
+      "bargein": {
+        "mean": 0.443,
+        "sem_over_seeds": 0.055,
+        "per_seed": [
+          0.355,
+          0.43,
+          0.545
+        ]
+      },
+      "turn_abandon": {
+        "mean": 0.293,
+        "sem_over_seeds": 0.02,
+        "per_seed": [
+          0.3,
+          0.255,
+          0.325
+        ]
+      },
+      "reprompt": {
+        "mean": 0.273,
+        "sem_over_seeds": 0.015,
+        "per_seed": [
+          0.27,
+          0.25,
+          0.3
+        ]
+      },
+      "frac_silent": {
+        "mean": 0.67,
+        "sem_over_seeds": 0.011,
+        "per_seed": [
+          0.674,
+          0.65,
+          0.687
+        ]
+      },
+      "frac_backchannel": {
+        "mean": 0.053,
+        "sem_over_seeds": 0.013,
+        "per_seed": [
+          0.03,
+          0.076,
+          0.054
+        ]
+      },
+      "frac_speak": {
+        "mean": 0.174,
+        "sem_over_seeds": 0.082,
+        "per_seed": [
+          0.289,
+          0.218,
+          0.015
+        ]
+      },
+      "frac_speak_slow": {
+        "mean": 0.001,
+        "sem_over_seeds": 0.001,
+        "per_seed": [
+          0.0,
+          0.002,
+          0.0
+        ]
+      },
+      "frac_speak_fast": {
+        "mean": 0.101,
+        "sem_over_seeds": 0.073,
+        "per_seed": [
+          0.006,
+          0.053,
+          0.244
+        ]
+      },
+      "frac_any_speech": {
+        "mean": 0.276,
+        "sem_over_seeds": 0.01,
+        "per_seed": [
+          0.295,
+          0.274,
+          0.26
+        ]
+      },
+      "response_latency_slots": {
+        "mean": 0.715,
+        "sem_over_seeds": 0.07,
+        "per_seed": [
+          0.771,
+          0.798,
+          0.575
+        ]
+      },
+      "chosen": [
+        "rif:beta|0.0",
+        "rif:beta|0.0",
+        "rif:beta|1.0"
+      ]
+    }
+  },
+  "per_checkpoint": {
+    "checkpoints/sim/e1_B_s0/final.pt": {
+      "val_cost": {
+        "prior:greedy": 17.8958,
+        "prior:sample": 24.4717,
+        "prior:thresh|0.1": 82.2725,
+        "prior:thresh|0.15": 55.4583,
+        "prior:thresh|0.2": 40.6517,
+        "prior:thresh|0.25": 31.2475,
+        "prior:thresh|0.3": 23.7983,
+        "prior:thresh|0.4": 13.8575,
+        "prior:thresh|0.5": 16.5367
+      },
+      "prior:greedy": {
+        "cost": 17.952,
+        "cost_sem": 0.4052,
+        "overlap_slots": 0.0,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 77.045,
+        "dead_air_slots": 11.505,
+        "irrelevant_slots": 0.0,
+        "bargein": 0.0,
+        "turn_abandon": 0.0,
+        "reprompt": 1.94,
+        "frac_silent": 1.0,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.0,
+        "frac_speak_slow": 0.0,
+        "frac_speak_fast": 0.0,
+        "frac_any_speech": 0.0,
+        "response_latency_slots": NaN,
+        "n_episodes": 200
+      },
+      "prior:sample": {
+        "cost": 23.724,
+        "cost_sem": 0.553,
+        "overlap_slots": 16.815,
+        "bc_overlap_slots": 8.545,
+        "gap_slots": 10.815,
+        "dead_air_slots": 4.875,
+        "irrelevant_slots": 3.095,
+        "bargein": 0.61,
+        "turn_abandon": 0.51,
+        "reprompt": 0.0,
+        "frac_silent": 0.4998,
+        "frac_backchannel": 0.1043,
+        "frac_speak": 0.1435,
+        "frac_speak_slow": 0.1285,
+        "frac_speak_fast": 0.1238,
+        "frac_any_speech": 0.3958,
+        "response_latency_slots": 2.8781,
+        "n_episodes": 200
+      },
+      "prior:thresh|0.1": {
+        "cost": 83.981,
+        "cost_sem": 2.4698,
+        "overlap_slots": 68.15,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 0.065,
+        "dead_air_slots": 2.165,
+        "irrelevant_slots": 41.61,
+        "bargein": 0.255,
+        "turn_abandon": 0.68,
+        "reprompt": 0.0,
+        "frac_silent": 0.2768,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.0721,
+        "frac_speak_slow": 0.0605,
+        "frac_speak_fast": 0.5905,
+        "frac_any_speech": 0.7232,
+        "response_latency_slots": 0.0758,
+        "n_episodes": 200
+      },
+      "prior:thresh|0.15": {
+        "cost": 55.3677,
+        "cost_sem": 2.2285,
+        "overlap_slots": 46.17,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 1.165,
+        "dead_air_slots": 6.13,
+        "irrelevant_slots": 17.255,
+        "bargein": 0.53,
+        "turn_abandon": 0.62,
+        "reprompt": 0.0,
+        "frac_silent": 0.4356,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.0112,
+        "frac_speak_slow": 0.2272,
+        "frac_speak_fast": 0.326,
+        "frac_any_speech": 0.5644,
+        "response_latency_slots": 1.0085,
+        "n_episodes": 200
+      },
+      "prior:thresh|0.2": {
+        "cost": 38.4623,
+        "cost_sem": 1.9992,
+        "overlap_slots": 31.805,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 2.815,
+        "dead_air_slots": 8.53,
+        "irrelevant_slots": 8.195,
+        "bargein": 0.485,
+        "turn_abandon": 0.595,
+        "reprompt": 0.0,
+        "frac_silent": 0.5142,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.0099,
+        "frac_speak_slow": 0.2877,
+        "frac_speak_fast": 0.1882,
+        "frac_any_speech": 0.4858,
+        "response_latency_slots": 2.1157,
+        "n_episodes": 200
+      },
+      "prior:thresh|0.25": {
+        "cost": 28.979,
+        "cost_sem": 1.4421,
+        "overlap_slots": 23.66,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 4.26,
+        "dead_air_slots": 10.16,
+        "irrelevant_slots": 3.64,
+        "bargein": 0.53,
+        "turn_abandon": 0.505,
+        "reprompt": 0.0,
+        "frac_silent": 0.5806,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.0188,
+        "frac_speak_slow": 0.2473,
+        "frac_speak_fast": 0.1532,
+        "frac_any_speech": 0.4194,
+        "response_latency_slots": 3.2871,
+        "n_episodes": 200
+      },
+      "prior:thresh|0.3": {
+        "cost": 23.2598,
+        "cost_sem": 1.0295,
+        "overlap_slots": 18.485,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 6.945,
+        "dead_air_slots": 12.01,
+        "irrelevant_slots": 1.475,
+        "bargein": 0.52,
+        "turn_abandon": 0.405,
+        "reprompt": 0.01,
+        "frac_silent": 0.6296,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.044,
+        "frac_speak_slow": 0.2049,
+        "frac_speak_fast": 0.1215,
+        "frac_any_speech": 0.3703,
+        "response_latency_slots": 4.8112,
+        "n_episodes": 200
+      },
+      "prior:thresh|0.4": {
+        "cost": 13.5612,
+        "cost_sem": 0.6411,
+        "overlap_slots": 5.15,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 30.715,
+        "dead_air_slots": 14.25,
+        "irrelevant_slots": 0.505,
+        "bargein": 0.275,
+        "turn_abandon": 0.215,
+        "reprompt": 0.51,
+        "frac_silent": 0.8051,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.1007,
+        "frac_speak_slow": 0.0298,
+        "frac_speak_fast": 0.0643,
+        "frac_any_speech": 0.1949,
+        "response_latency_slots": 8.3253,
+        "n_episodes": 200
+      },
+      "prior:thresh|0.5": {
+        "cost": 17.6442,
+        "cost_sem": 0.4275,
+        "overlap_slots": 0.39,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 73.74,
+        "dead_air_slots": 11.585,
+        "irrelevant_slots": 0.03,
+        "bargein": 0.04,
+        "turn_abandon": 0.02,
+        "reprompt": 1.815,
+        "frac_silent": 0.9836,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.0126,
+        "frac_speak_slow": 0.0008,
+        "frac_speak_fast": 0.0031,
+        "frac_any_speech": 0.0164,
+        "response_latency_slots": 11.2,
+        "n_episodes": 200
+      },
+      "prior:greedy|tuned": {
+        "cost": 17.952,
+        "cost_sem": 0.4052,
+        "overlap_slots": 0.0,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 77.045,
+        "dead_air_slots": 11.505,
+        "irrelevant_slots": 0.0,
+        "bargein": 0.0,
+        "turn_abandon": 0.0,
+        "reprompt": 1.94,
+        "frac_silent": 1.0,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.0,
+        "frac_speak_slow": 0.0,
+        "frac_speak_fast": 0.0,
+        "frac_any_speech": 0.0,
+        "response_latency_slots": NaN,
+        "n_episodes": 200,
+        "chosen": "prior:greedy"
+      },
+      "prior:sample|tuned": {
+        "cost": 23.724,
+        "cost_sem": 0.553,
+        "overlap_slots": 16.815,
+        "bc_overlap_slots": 8.545,
+        "gap_slots": 10.815,
+        "dead_air_slots": 4.875,
+        "irrelevant_slots": 3.095,
+        "bargein": 0.61,
+        "turn_abandon": 0.51,
+        "reprompt": 0.0,
+        "frac_silent": 0.4998,
+        "frac_backchannel": 0.1043,
+        "frac_speak": 0.1435,
+        "frac_speak_slow": 0.1285,
+        "frac_speak_fast": 0.1238,
+        "frac_any_speech": 0.3958,
+        "response_latency_slots": 2.8781,
+        "n_episodes": 200,
+        "chosen": "prior:sample"
+      },
+      "prior:thresh|tuned": {
+        "cost": 13.5612,
+        "cost_sem": 0.6411,
+        "overlap_slots": 5.15,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 30.715,
+        "dead_air_slots": 14.25,
+        "irrelevant_slots": 0.505,
+        "bargein": 0.275,
+        "turn_abandon": 0.215,
+        "reprompt": 0.51,
+        "frac_silent": 0.8051,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.1007,
+        "frac_speak_slow": 0.0298,
+        "frac_speak_fast": 0.0643,
+        "frac_any_speech": 0.1949,
+        "response_latency_slots": 8.3253,
+        "n_episodes": 200,
+        "chosen": "prior:thresh|0.4"
+      }
+    },
+    "checkpoints/sim/e1_B_s1/final.pt": {
+      "val_cost": {
+        "prior:greedy": 17.8958,
+        "prior:sample": 23.6358,
+        "prior:thresh|0.1": 78.3325,
+        "prior:thresh|0.15": 62.415,
+        "prior:thresh|0.2": 38.5917,
+        "prior:thresh|0.25": 34.6667,
+        "prior:thresh|0.3": 30.7275,
+        "prior:thresh|0.4": 20.9767,
+        "prior:thresh|0.5": 17.3375
+      },
+      "prior:greedy": {
+        "cost": 17.952,
+        "cost_sem": 0.4052,
+        "overlap_slots": 0.0,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 77.045,
+        "dead_air_slots": 11.505,
+        "irrelevant_slots": 0.0,
+        "bargein": 0.0,
+        "turn_abandon": 0.0,
+        "reprompt": 1.94,
+        "frac_silent": 1.0,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.0,
+        "frac_speak_slow": 0.0,
+        "frac_speak_fast": 0.0,
+        "frac_any_speech": 0.0,
+        "response_latency_slots": NaN,
+        "n_episodes": 200
+      },
+      "prior:sample": {
+        "cost": 23.5328,
+        "cost_sem": 0.5411,
+        "overlap_slots": 16.94,
+        "bc_overlap_slots": 9.805,
+        "gap_slots": 10.755,
+        "dead_air_slots": 5.15,
+        "irrelevant_slots": 2.805,
+        "bargein": 0.515,
+        "turn_abandon": 0.46,
+        "reprompt": 0.01,
+        "frac_silent": 0.4968,
+        "frac_backchannel": 0.113,
+        "frac_speak": 0.1261,
+        "frac_speak_slow": 0.1406,
+        "frac_speak_fast": 0.1234,
+        "frac_any_speech": 0.3901,
+        "response_latency_slots": 2.8923,
+        "n_episodes": 200
+      },
+      "prior:thresh|0.1": {
+        "cost": 81.9495,
+        "cost_sem": 2.1668,
+        "overlap_slots": 67.975,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 0.06,
+        "dead_air_slots": 1.86,
+        "irrelevant_slots": 34.275,
+        "bargein": 0.415,
+        "turn_abandon": 0.69,
+        "reprompt": 0.0,
+        "frac_silent": 0.2551,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.1651,
+        "frac_speak_slow": 0.4671,
+        "frac_speak_fast": 0.1127,
+        "frac_any_speech": 0.7449,
+        "response_latency_slots": 0.0667,
+        "n_episodes": 200
+      },
+      "prior:thresh|0.15": {
+        "cost": 55.1558,
+        "cost_sem": 2.2537,
+        "overlap_slots": 45.245,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 1.125,
+        "dead_air_slots": 4.53,
+        "irrelevant_slots": 19.785,
+        "bargein": 0.55,
+        "turn_abandon": 0.62,
+        "reprompt": 0.0,
+        "frac_silent": 0.4115,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.0084,
+        "frac_speak_slow": 0.3407,
+        "frac_speak_fast": 0.2394,
+        "frac_any_speech": 0.5885,
+        "response_latency_slots": 0.8856,
+        "n_episodes": 200
+      },
+      "prior:thresh|0.2": {
+        "cost": 36.6738,
+        "cost_sem": 1.4736,
+        "overlap_slots": 30.37,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 2.795,
+        "dead_air_slots": 8.27,
+        "irrelevant_slots": 5.67,
+        "bargein": 0.655,
+        "turn_abandon": 0.615,
+        "reprompt": 0.0,
+        "frac_silent": 0.5263,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.0025,
+        "frac_speak_slow": 0.3468,
+        "frac_speak_fast": 0.1243,
+        "frac_any_speech": 0.4737,
+        "response_latency_slots": 2.1435,
+        "n_episodes": 200
+      },
+      "prior:thresh|0.25": {
+        "cost": 31.4337,
+        "cost_sem": 1.4472,
+        "overlap_slots": 25.86,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 4.105,
+        "dead_air_slots": 10.54,
+        "irrelevant_slots": 3.27,
+        "bargein": 0.665,
+        "turn_abandon": 0.53,
+        "reprompt": 0.0,
+        "frac_silent": 0.5682,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.0049,
+        "frac_speak_slow": 0.3548,
+        "frac_speak_fast": 0.0721,
+        "frac_any_speech": 0.4318,
+        "response_latency_slots": 3.086,
+        "n_episodes": 200
+      },
+      "prior:thresh|0.3": {
+        "cost": 26.7833,
+        "cost_sem": 1.1703,
+        "overlap_slots": 21.685,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 6.375,
+        "dead_air_slots": 11.97,
+        "irrelevant_slots": 1.545,
+        "bargein": 0.67,
+        "turn_abandon": 0.435,
+        "reprompt": 0.0,
+        "frac_silent": 0.6048,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.0173,
+        "frac_speak_slow": 0.3286,
+        "frac_speak_fast": 0.0492,
+        "frac_any_speech": 0.3952,
+        "response_latency_slots": 4.666,
+        "n_episodes": 200
+      },
+      "prior:thresh|0.4": {
+        "cost": 15.6975,
+        "cost_sem": 0.6222,
+        "overlap_slots": 7.96,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 26.915,
+        "dead_air_slots": 13.435,
+        "irrelevant_slots": 0.495,
+        "bargein": 0.445,
+        "turn_abandon": 0.205,
+        "reprompt": 0.39,
+        "frac_silent": 0.7594,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.0182,
+        "frac_speak_slow": 0.1961,
+        "frac_speak_fast": 0.0264,
+        "frac_any_speech": 0.2406,
+        "response_latency_slots": 8.4843,
+        "n_episodes": 200
+      },
+      "prior:thresh|0.5": {
+        "cost": 16.856,
+        "cost_sem": 0.4393,
+        "overlap_slots": 0.41,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 69.45,
+        "dead_air_slots": 12.3,
+        "irrelevant_slots": 0.045,
+        "bargein": 0.08,
+        "turn_abandon": 0.035,
+        "reprompt": 1.7,
+        "frac_silent": 0.972,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.0008,
+        "frac_speak_slow": 0.0273,
+        "frac_speak_fast": 0.0,
+        "frac_any_speech": 0.028,
+        "response_latency_slots": 11.0455,
+        "n_episodes": 200
+      },
+      "prior:greedy|tuned": {
+        "cost": 17.952,
+        "cost_sem": 0.4052,
+        "overlap_slots": 0.0,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 77.045,
+        "dead_air_slots": 11.505,
+        "irrelevant_slots": 0.0,
+        "bargein": 0.0,
+        "turn_abandon": 0.0,
+        "reprompt": 1.94,
+        "frac_silent": 1.0,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.0,
+        "frac_speak_slow": 0.0,
+        "frac_speak_fast": 0.0,
+        "frac_any_speech": 0.0,
+        "response_latency_slots": NaN,
+        "n_episodes": 200,
+        "chosen": "prior:greedy"
+      },
+      "prior:sample|tuned": {
+        "cost": 23.5328,
+        "cost_sem": 0.5411,
+        "overlap_slots": 16.94,
+        "bc_overlap_slots": 9.805,
+        "gap_slots": 10.755,
+        "dead_air_slots": 5.15,
+        "irrelevant_slots": 2.805,
+        "bargein": 0.515,
+        "turn_abandon": 0.46,
+        "reprompt": 0.01,
+        "frac_silent": 0.4968,
+        "frac_backchannel": 0.113,
+        "frac_speak": 0.1261,
+        "frac_speak_slow": 0.1406,
+        "frac_speak_fast": 0.1234,
+        "frac_any_speech": 0.3901,
+        "response_latency_slots": 2.8923,
+        "n_episodes": 200,
+        "chosen": "prior:sample"
+      },
+      "prior:thresh|tuned": {
+        "cost": 16.856,
+        "cost_sem": 0.4393,
+        "overlap_slots": 0.41,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 69.45,
+        "dead_air_slots": 12.3,
+        "irrelevant_slots": 0.045,
+        "bargein": 0.08,
+        "turn_abandon": 0.035,
+        "reprompt": 1.7,
+        "frac_silent": 0.972,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.0008,
+        "frac_speak_slow": 0.0273,
+        "frac_speak_fast": 0.0,
+        "frac_any_speech": 0.028,
+        "response_latency_slots": 11.0455,
+        "n_episodes": 200,
+        "chosen": "prior:thresh|0.5"
+      }
+    },
+    "checkpoints/sim/e1_B_s2/final.pt": {
+      "val_cost": {
+        "prior:greedy": 17.8958,
+        "prior:sample": 23.9083,
+        "prior:thresh|0.1": 73.3883,
+        "prior:thresh|0.15": 53.2983,
+        "prior:thresh|0.2": 32.8983,
+        "prior:thresh|0.25": 31.2142,
+        "prior:thresh|0.3": 24.0442,
+        "prior:thresh|0.4": 13.9475,
+        "prior:thresh|0.5": 14.6533
+      },
+      "prior:greedy": {
+        "cost": 17.952,
+        "cost_sem": 0.4052,
+        "overlap_slots": 0.0,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 77.045,
+        "dead_air_slots": 11.505,
+        "irrelevant_slots": 0.0,
+        "bargein": 0.0,
+        "turn_abandon": 0.0,
+        "reprompt": 1.94,
+        "frac_silent": 1.0,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.0,
+        "frac_speak_slow": 0.0,
+        "frac_speak_fast": 0.0,
+        "frac_any_speech": 0.0,
+        "response_latency_slots": NaN,
+        "n_episodes": 200
+      },
+      "prior:sample": {
+        "cost": 23.4398,
+        "cost_sem": 0.5923,
+        "overlap_slots": 16.625,
+        "bc_overlap_slots": 9.48,
+        "gap_slots": 11.375,
+        "dead_air_slots": 5.29,
+        "irrelevant_slots": 2.92,
+        "bargein": 0.51,
+        "turn_abandon": 0.5,
+        "reprompt": 0.0,
+        "frac_silent": 0.5017,
+        "frac_backchannel": 0.11,
+        "frac_speak": 0.1318,
+        "frac_speak_slow": 0.1139,
+        "frac_speak_fast": 0.1426,
+        "frac_any_speech": 0.3883,
+        "response_latency_slots": 2.4914,
+        "n_episodes": 200
+      },
+      "prior:thresh|0.1": {
+        "cost": 74.6525,
+        "cost_sem": 2.2941,
+        "overlap_slots": 62.095,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 0.055,
+        "dead_air_slots": 2.225,
+        "irrelevant_slots": 30.66,
+        "bargein": 0.37,
+        "turn_abandon": 0.625,
+        "reprompt": 0.0,
+        "frac_silent": 0.2984,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.132,
+        "frac_speak_slow": 0.2948,
+        "frac_speak_fast": 0.2749,
+        "frac_any_speech": 0.7016,
+        "response_latency_slots": 0.0664,
+        "n_episodes": 200
+      },
+      "prior:thresh|0.15": {
+        "cost": 49.3355,
+        "cost_sem": 1.9124,
+        "overlap_slots": 41.39,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 1.24,
+        "dead_air_slots": 6.4,
+        "irrelevant_slots": 14.465,
+        "bargein": 0.4,
+        "turn_abandon": 0.575,
+        "reprompt": 0.0,
+        "frac_silent": 0.4642,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.0233,
+        "frac_speak_slow": 0.2064,
+        "frac_speak_fast": 0.3061,
+        "frac_any_speech": 0.5358,
+        "response_latency_slots": 1.2908,
+        "n_episodes": 200
+      },
+      "prior:thresh|0.2": {
+        "cost": 36.9487,
+        "cost_sem": 1.5072,
+        "overlap_slots": 30.62,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 2.82,
+        "dead_air_slots": 8.485,
+        "irrelevant_slots": 6.605,
+        "bargein": 0.53,
+        "turn_abandon": 0.61,
+        "reprompt": 0.0,
+        "frac_silent": 0.5311,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.0181,
+        "frac_speak_slow": 0.195,
+        "frac_speak_fast": 0.2558,
+        "frac_any_speech": 0.4689,
+        "response_latency_slots": 2.2831,
+        "n_episodes": 200
+      },
+      "prior:thresh|0.25": {
+        "cost": 29.1163,
+        "cost_sem": 1.3504,
+        "overlap_slots": 24.15,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 4.425,
+        "dead_air_slots": 10.73,
+        "irrelevant_slots": 3.32,
+        "bargein": 0.495,
+        "turn_abandon": 0.445,
+        "reprompt": 0.0,
+        "frac_silent": 0.5941,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.0424,
+        "frac_speak_slow": 0.1762,
+        "frac_speak_fast": 0.1873,
+        "frac_any_speech": 0.4059,
+        "response_latency_slots": 3.5844,
+        "n_episodes": 200
+      },
+      "prior:thresh|0.3": {
+        "cost": 23.362,
+        "cost_sem": 1.1415,
+        "overlap_slots": 18.455,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 7.575,
+        "dead_air_slots": 12.845,
+        "irrelevant_slots": 1.895,
+        "bargein": 0.54,
+        "turn_abandon": 0.37,
+        "reprompt": 0.0,
+        "frac_silent": 0.6453,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.0623,
+        "frac_speak_slow": 0.1484,
+        "frac_speak_fast": 0.144,
+        "frac_any_speech": 0.3547,
+        "response_latency_slots": 5.563,
+        "n_episodes": 200
+      },
+      "prior:thresh|0.4": {
+        "cost": 12.894,
+        "cost_sem": 0.6442,
+        "overlap_slots": 7.295,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 17.055,
+        "dead_air_slots": 14.625,
+        "irrelevant_slots": 0.865,
+        "bargein": 0.5,
+        "turn_abandon": 0.195,
+        "reprompt": 0.09,
+        "frac_silent": 0.7372,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.097,
+        "frac_speak_slow": 0.0763,
+        "frac_speak_fast": 0.0895,
+        "frac_any_speech": 0.2628,
+        "response_latency_slots": 9.5677,
+        "n_episodes": 200
+      },
+      "prior:thresh|0.5": {
+        "cost": 14.8697,
+        "cost_sem": 0.453,
+        "overlap_slots": 0.505,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 61.48,
+        "dead_air_slots": 12.745,
+        "irrelevant_slots": 0.135,
+        "bargein": 0.115,
+        "turn_abandon": 0.02,
+        "reprompt": 1.385,
+        "frac_silent": 0.9402,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.0312,
+        "frac_speak_slow": 0.019,
+        "frac_speak_fast": 0.0096,
+        "frac_any_speech": 0.0598,
+        "response_latency_slots": 13.85,
+        "n_episodes": 200
+      },
+      "prior:greedy|tuned": {
+        "cost": 17.952,
+        "cost_sem": 0.4052,
+        "overlap_slots": 0.0,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 77.045,
+        "dead_air_slots": 11.505,
+        "irrelevant_slots": 0.0,
+        "bargein": 0.0,
+        "turn_abandon": 0.0,
+        "reprompt": 1.94,
+        "frac_silent": 1.0,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.0,
+        "frac_speak_slow": 0.0,
+        "frac_speak_fast": 0.0,
+        "frac_any_speech": 0.0,
+        "response_latency_slots": NaN,
+        "n_episodes": 200,
+        "chosen": "prior:greedy"
+      },
+      "prior:sample|tuned": {
+        "cost": 23.4398,
+        "cost_sem": 0.5923,
+        "overlap_slots": 16.625,
+        "bc_overlap_slots": 9.48,
+        "gap_slots": 11.375,
+        "dead_air_slots": 5.29,
+        "irrelevant_slots": 2.92,
+        "bargein": 0.51,
+        "turn_abandon": 0.5,
+        "reprompt": 0.0,
+        "frac_silent": 0.5017,
+        "frac_backchannel": 0.11,
+        "frac_speak": 0.1318,
+        "frac_speak_slow": 0.1139,
+        "frac_speak_fast": 0.1426,
+        "frac_any_speech": 0.3883,
+        "response_latency_slots": 2.4914,
+        "n_episodes": 200,
+        "chosen": "prior:sample"
+      },
+      "prior:thresh|tuned": {
+        "cost": 12.894,
+        "cost_sem": 0.6442,
+        "overlap_slots": 7.295,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 17.055,
+        "dead_air_slots": 14.625,
+        "irrelevant_slots": 0.865,
+        "bargein": 0.5,
+        "turn_abandon": 0.195,
+        "reprompt": 0.09,
+        "frac_silent": 0.7372,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.097,
+        "frac_speak_slow": 0.0763,
+        "frac_speak_fast": 0.0895,
+        "frac_any_speech": 0.2628,
+        "response_latency_slots": 9.5677,
+        "n_episodes": 200,
+        "chosen": "prior:thresh|0.4"
+      }
+    },
+    "checkpoints/sim/e1_Bcrit_s0/final.pt": {
+      "val_cost": {
+        "rif:beta|0.0": 11.2467,
+        "rif:beta|0.5": 11.1783,
+        "rif:beta|1.0": 10.8325
+      },
+      "rif:beta|0.0": {
+        "cost": 9.7122,
+        "cost_sem": 0.3856,
+        "overlap_slots": 0.7,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 30.695,
+        "dead_air_slots": 8.58,
+        "irrelevant_slots": 0.33,
+        "bargein": 0.395,
+        "turn_abandon": 0.21,
+        "reprompt": 0.75,
+        "frac_silent": 0.7612,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.182,
+        "frac_speak_slow": 0.0568,
+        "frac_speak_fast": 0.0,
+        "frac_any_speech": 0.2388,
+        "response_latency_slots": 1.0799,
+        "n_episodes": 200
+      },
+      "rif:beta|0.5": {
+        "cost": 9.829,
+        "cost_sem": 0.3799,
+        "overlap_slots": 0.64,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 30.95,
+        "dead_air_slots": 8.48,
+        "irrelevant_slots": 0.375,
+        "bargein": 0.385,
+        "turn_abandon": 0.225,
+        "reprompt": 0.78,
+        "frac_silent": 0.756,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.2047,
+        "frac_speak_slow": 0.0393,
+        "frac_speak_fast": 0.0,
+        "frac_any_speech": 0.244,
+        "response_latency_slots": 0.8922,
+        "n_episodes": 200
+      },
+      "rif:beta|1.0": {
+        "cost": 9.8317,
+        "cost_sem": 0.3849,
+        "overlap_slots": 0.59,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 31.085,
+        "dead_air_slots": 8.87,
+        "irrelevant_slots": 0.385,
+        "bargein": 0.315,
+        "turn_abandon": 0.255,
+        "reprompt": 0.79,
+        "frac_silent": 0.7593,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.2202,
+        "frac_speak_slow": 0.0204,
+        "frac_speak_fast": 0.0,
+        "frac_any_speech": 0.2407,
+        "response_latency_slots": 0.97,
+        "n_episodes": 200
+      },
+      "rif:beta|tuned": {
+        "cost": 9.8317,
+        "cost_sem": 0.3849,
+        "overlap_slots": 0.59,
+        "bc_overlap_slots": 0.0,
+        "gap_slots": 31.085,
+        "dead_air_slots": 8.87,
+        "irrelevant_slots": 0.385,
+        "bargein": 0.315,
+        "turn_abandon": 0.255,
+        "reprompt": 0.79,
+        "frac_silent": 0.7593,
+        "frac_backchannel": 0.0,
+        "frac_speak": 0.2202,
+        "frac_speak_slow": 0.0204,
+        "frac_speak_fast": 0.0,
+        "frac_any_speech": 0.2407,
+        "response_latency_slots": 0.97,
+        "n_episodes": 200,
+        "chosen": "rif:beta|1.0"
+      }
+    },
+    "checkpoints/sim/e1_Bcrit_s1/final.pt": {
+      "val_cost": {
+        "rif:beta|0.0": 14.0317,
+        "rif:beta|0.5": 14.095,
+        "rif:beta|1.0": 14.12
+      },
+      "rif:beta|0.0": {
+        "cost": 13.542,
+        "cost_sem": 0.444,
+        "overlap_slots": 0.295,
+        "bc_overlap_slots": 0.395,
+        "gap_slots": 53.245,
+        "dead_air_slots": 7.315,
+        "irrelevant_slots": 0.2,
+        "bargein": 0.25,
+        "turn_abandon": 0.11,
+        "reprompt": 1.285,
+        "frac_silent": 0.8058,
+        "frac_backchannel": 0.0451,
+        "frac_speak": 0.1492,
+        "frac_speak_slow": 0.0,
+        "frac_speak_fast": 0.0,
+        "frac_any_speech": 0.1492,
+        "response_latency_slots": 3.0983,
+        "n_episodes": 200
+      },
+      "rif:beta|0.5": {
+        "cost": 13.4093,
+        "cost_sem": 0.4463,
+        "overlap_slots": 0.275,
+        "bc_overlap_slots": 0.36,
+        "gap_slots": 53.15,
+        "dead_air_slots": 7.425,
+        "irrelevant_slots": 0.215,
+        "bargein": 0.23,
+        "turn_abandon": 0.105,
+        "reprompt": 1.27,
+        "frac_silent": 0.8058,
+        "frac_backchannel": 0.0434,
+        "frac_speak": 0.1508,
+        "frac_speak_slow": 0.0,
+        "frac_speak_fast": 0.0,
+        "frac_any_speech": 0.1508,
+        "response_latency_slots": 2.9121,
+        "n_episodes": 200
+      },
+      "rif:beta|1.0": {
+        "cost": 13.5985,
+        "cost_sem": 0.4581,
+        "overlap_slots": 0.25,
+        "bc_overlap_slots": 0.375,
+        "gap_slots": 54.26,
+        "dead_air_slots": 7.61,
+        "irrelevant_slots": 0.205,
+        "bargein": 0.205,
+        "turn_abandon": 0.105,
+        "reprompt": 1.3,
+        "frac_silent": 0.8127,
+        "frac_backchannel": 0.0414,
+        "frac_speak": 0.1459,
+        "frac_speak_slow": 0.0,
+        "frac_speak_fast": 0.0,
+        "frac_any_speech": 0.1459,
+        "response_latency_slots": 2.9148,
+        "n_episodes": 200
+      },
+      "rif:beta|tuned": {
+        "cost": 13.542,
+        "cost_sem": 0.444,
+        "overlap_slots": 0.295,
+        "bc_overlap_slots": 0.395,
+        "gap_slots": 53.245,
+        "dead_air_slots": 7.315,
+        "irrelevant_slots": 0.2,
+        "bargein": 0.25,
+        "turn_abandon": 0.11,
+        "reprompt": 1.285,
+        "frac_silent": 0.8058,
+        "frac_backchannel": 0.0451,
+        "frac_speak": 0.1492,
+        "frac_speak_slow": 0.0,
+        "frac_speak_fast": 0.0,
+        "frac_any_speech": 0.1492,
+        "response_latency_slots": 3.0983,
+        "n_episodes": 200,
+        "chosen": "rif:beta|0.0"
+      }
+    },
+    "checkpoints/sim/e1_Bcrit_s2/final.pt": {
+      "val_cost": {
+        "rif:beta|0.0": 9.1717,
+        "rif:beta|0.5": 9.545,
+        "rif:beta|1.0": 9.8817
+      },
+      "rif:beta|0.0": {
+        "cost": 9.95,
+        "cost_sem": 0.362,
+        "overlap_slots": 0.77,
+        "bc_overlap_slots": 1.435,
+        "gap_slots": 31.53,
+        "dead_air_slots": 2.81,
+        "irrelevant_slots": 0.355,
+        "bargein": 0.475,
+        "turn_abandon": 0.26,
+        "reprompt": 0.69,
+        "frac_silent": 0.6672,
+        "frac_backchannel": 0.1148,
+        "frac_speak": 0.0179,
+        "frac_speak_slow": 0.008,
+        "frac_speak_fast": 0.1921,
+        "frac_any_speech": 0.218,
+        "response_latency_slots": 0.8342,
+        "n_episodes": 200
+      },
+      "rif:beta|0.5": {
+        "cost": 10.2175,
+        "cost_sem": 0.3434,
+        "overlap_slots": 0.79,
+        "bc_overlap_slots": 1.415,
+        "gap_slots": 33.11,
+        "dead_air_slots": 2.73,
+        "irrelevant_slots": 0.31,
+        "bargein": 0.43,
+        "turn_abandon": 0.245,
+        "reprompt": 0.75,
+        "frac_silent": 0.6641,
+        "frac_backchannel": 0.1197,
+        "frac_speak": 0.0182,
+        "frac_speak_slow": 0.0058,
+        "frac_speak_fast": 0.1922,
+        "frac_any_speech": 0.2162,
+        "response_latency_slots": 0.838,
+        "n_episodes": 200
+      },
+      "rif:beta|1.0": {
+        "cost": 10.3953,
+        "cost_sem": 0.3433,
+        "overlap_slots": 0.83,
+        "bc_overlap_slots": 1.415,
+        "gap_slots": 33.0,
+        "dead_air_slots": 2.805,
+        "irrelevant_slots": 0.395,
+        "bargein": 0.41,
+        "turn_abandon": 0.26,
+        "reprompt": 0.785,
+        "frac_silent": 0.6647,
+        "frac_backchannel": 0.1172,
+        "frac_speak": 0.0198,
+        "frac_speak_slow": 0.0046,
+        "frac_speak_fast": 0.1937,
+        "frac_any_speech": 0.2182,
+        "response_latency_slots": 0.8,
+        "n_episodes": 200
+      },
+      "rif:beta|tuned": {
+        "cost": 9.95,
+        "cost_sem": 0.362,
+        "overlap_slots": 0.77,
+        "bc_overlap_slots": 1.435,
+        "gap_slots": 31.53,
+        "dead_air_slots": 2.81,
+        "irrelevant_slots": 0.355,
+        "bargein": 0.475,
+        "turn_abandon": 0.26,
+        "reprompt": 0.69,
+        "frac_silent": 0.6672,
+        "frac_backchannel": 0.1148,
+        "frac_speak": 0.0179,
+        "frac_speak_slow": 0.008,
+        "frac_speak_fast": 0.1921,
+        "frac_any_speech": 0.218,
+        "response_latency_slots": 0.8342,
+        "n_episodes": 200,
+        "chosen": "rif:beta|0.0"
+      }
+    },
+    "checkpoints/sim/e1_C_s0/final.pt": {
+      "val_cost": {
+        "rif:beta|0.0": 8.1108,
+        "rif:beta|0.5": 8.3342,
+        "rif:beta|1.0": 8.5367
+      },
+      "rif:beta|0.0": {
+        "cost": 6.6963,
+        "cost_sem": 0.2878,
+        "overlap_slots": 0.86,
+        "bc_overlap_slots": 0.465,
+        "gap_slots": 18.275,
+        "dead_air_slots": 3.15,
+        "irrelevant_slots": 0.57,
+        "bargein": 0.355,
+        "turn_abandon": 0.3,
+        "reprompt": 0.27,
+        "frac_silent": 0.6743,
+        "frac_backchannel": 0.0302,
+        "frac_speak": 0.2891,
+        "frac_speak_slow": 0.0,
+        "frac_speak_fast": 0.0064,
+        "frac_any_speech": 0.2955,
+        "response_latency_slots": 0.7713,
+        "n_episodes": 200
+      },
+      "rif:beta|0.5": {
+        "cost": 6.5492,
+        "cost_sem": 0.2882,
+        "overlap_slots": 0.865,
+        "bc_overlap_slots": 0.455,
+        "gap_slots": 17.87,
+        "dead_air_slots": 3.245,
+        "irrelevant_slots": 0.52,
+        "bargein": 0.35,
+        "turn_abandon": 0.29,
+        "reprompt": 0.26,
+        "frac_silent": 0.6724,
+        "frac_backchannel": 0.0348,
+        "frac_speak": 0.286,
+        "frac_speak_slow": 0.0,
+        "frac_speak_fast": 0.0068,
+        "frac_any_speech": 0.2928,
+        "response_latency_slots": 0.7014,
+        "n_episodes": 200
+      },
+      "rif:beta|1.0": {
+        "cost": 6.6507,
+        "cost_sem": 0.2814,
+        "overlap_slots": 0.925,
+        "bc_overlap_slots": 0.51,
+        "gap_slots": 17.785,
+        "dead_air_slots": 3.15,
+        "irrelevant_slots": 0.515,
+        "bargein": 0.375,
+        "turn_abandon": 0.31,
+        "reprompt": 0.235,
+        "frac_silent": 0.668,
+        "frac_backchannel": 0.0394,
+        "frac_speak": 0.2846,
+        "frac_speak_slow": 0.0003,
+        "frac_speak_fast": 0.0078,
+        "frac_any_speech": 0.2927,
+        "response_latency_slots": 0.69,
+        "n_episodes": 200
+      },
+      "rif:beta|tuned": {
+        "cost": 6.6963,
+        "cost_sem": 0.2878,
+        "overlap_slots": 0.86,
+        "bc_overlap_slots": 0.465,
+        "gap_slots": 18.275,
+        "dead_air_slots": 3.15,
+        "irrelevant_slots": 0.57,
+        "bargein": 0.355,
+        "turn_abandon": 0.3,
+        "reprompt": 0.27,
+        "frac_silent": 0.6743,
+        "frac_backchannel": 0.0302,
+        "frac_speak": 0.2891,
+        "frac_speak_slow": 0.0,
+        "frac_speak_fast": 0.0064,
+        "frac_any_speech": 0.2955,
+        "response_latency_slots": 0.7713,
+        "n_episodes": 200,
+        "chosen": "rif:beta|0.0"
+      }
+    },
+    "checkpoints/sim/e1_C_s1/final.pt": {
+      "val_cost": {
+        "rif:beta|0.0": 7.8592,
+        "rif:beta|0.5": 7.9633,
+        "rif:beta|1.0": 8.6367
+      },
+      "rif:beta|0.0": {
+        "cost": 6.772,
+        "cost_sem": 0.2915,
+        "overlap_slots": 0.76,
+        "bc_overlap_slots": 1.93,
+        "gap_slots": 20.12,
+        "dead_air_slots": 2.61,
+        "irrelevant_slots": 0.135,
+        "bargein": 0.43,
+        "turn_abandon": 0.255,
+        "reprompt": 0.25,
+        "frac_silent": 0.6499,
+        "frac_backchannel": 0.0764,
+        "frac_speak": 0.2185,
+        "frac_speak_slow": 0.0024,
+        "frac_speak_fast": 0.0529,
+        "frac_any_speech": 0.2737,
+        "response_latency_slots": 0.7984,
+        "n_episodes": 200
+      },
+      "rif:beta|0.5": {
+        "cost": 6.7627,
+        "cost_sem": 0.2815,
+        "overlap_slots": 0.805,
+        "bc_overlap_slots": 1.74,
+        "gap_slots": 19.81,
+        "dead_air_slots": 2.755,
+        "irrelevant_slots": 0.165,
+        "bargein": 0.435,
+        "turn_abandon": 0.27,
+        "reprompt": 0.225,
+        "frac_silent": 0.6564,
+        "frac_backchannel": 0.0728,
+        "frac_speak": 0.2123,
+        "frac_speak_slow": 0.0029,
+        "frac_speak_fast": 0.0556,
+        "frac_any_speech": 0.2707,
+        "response_latency_slots": 0.9039,
+        "n_episodes": 200
+      },
+      "rif:beta|1.0": {
+        "cost": 7.0755,
+        "cost_sem": 0.2818,
+        "overlap_slots": 0.845,
+        "bc_overlap_slots": 1.885,
+        "gap_slots": 20.885,
+        "dead_air_slots": 2.775,
+        "irrelevant_slots": 0.185,
+        "bargein": 0.415,
+        "turn_abandon": 0.295,
+        "reprompt": 0.235,
+        "frac_silent": 0.6536,
+        "frac_backchannel": 0.0702,
+        "frac_speak": 0.2124,
+        "frac_speak_slow": 0.0035,
+        "frac_speak_fast": 0.0603,
+        "frac_any_speech": 0.2762,
+        "response_latency_slots": 1.1855,
+        "n_episodes": 200
+      },
+      "rif:beta|tuned": {
+        "cost": 6.772,
+        "cost_sem": 0.2915,
+        "overlap_slots": 0.76,
+        "bc_overlap_slots": 1.93,
+        "gap_slots": 20.12,
+        "dead_air_slots": 2.61,
+        "irrelevant_slots": 0.135,
+        "bargein": 0.43,
+        "turn_abandon": 0.255,
+        "reprompt": 0.25,
+        "frac_silent": 0.6499,
+        "frac_backchannel": 0.0764,
+        "frac_speak": 0.2185,
+        "frac_speak_slow": 0.0024,
+        "frac_speak_fast": 0.0529,
+        "frac_any_speech": 0.2737,
+        "response_latency_slots": 0.7984,
+        "n_episodes": 200,
+        "chosen": "rif:beta|0.0"
+      }
+    },
+    "checkpoints/sim/e1_C_s2/final.pt": {
+      "val_cost": {
+        "rif:beta|0.0": 7.8308,
+        "rif:beta|0.5": 7.2583,
+        "rif:beta|1.0": 6.905
+      },
+      "rif:beta|0.0": {
+        "cost": 7.7502,
+        "cost_sem": 0.2853,
+        "overlap_slots": 0.97,
+        "bc_overlap_slots": 2.805,
+        "gap_slots": 20.165,
+        "dead_air_slots": 2.5,
+        "irrelevant_slots": 0.6,
+        "bargein": 0.585,
+        "turn_abandon": 0.275,
+        "reprompt": 0.3,
+        "frac_silent": 0.6947,
+        "frac_backchannel": 0.0524,
+        "frac_speak": 0.0142,
+        "frac_speak_slow": 0.0,
+        "frac_speak_fast": 0.2387,
+        "frac_any_speech": 0.2529,
+        "response_latency_slots": 0.6325,
+        "n_episodes": 200
+      },
+      "rif:beta|0.5": {
+        "cost": 7.9245,
+        "cost_sem": 0.2878,
+        "overlap_slots": 0.895,
+        "bc_overlap_slots": 2.64,
+        "gap_slots": 20.99,
+        "dead_air_slots": 2.39,
+        "irrelevant_slots": 0.575,
+        "bargein": 0.545,
+        "turn_abandon": 0.315,
+        "reprompt": 0.325,
+        "frac_silent": 0.6906,
+        "frac_backchannel": 0.0514,
+        "frac_speak": 0.0146,
+        "frac_speak_slow": 0.0,
+        "frac_speak_fast": 0.2435,
+        "frac_any_speech": 0.258,
+        "response_latency_slots": 0.5579,
+        "n_episodes": 200
+      },
+      "rif:beta|1.0": {
+        "cost": 7.8885,
+        "cost_sem": 0.2852,
+        "overlap_slots": 0.905,
+        "bc_overlap_slots": 2.67,
+        "gap_slots": 20.655,
+        "dead_air_slots": 2.545,
+        "irrelevant_slots": 0.67,
+        "bargein": 0.545,
+        "turn_abandon": 0.325,
+        "reprompt": 0.3,
+        "frac_silent": 0.6869,
+        "frac_backchannel": 0.0536,
+        "frac_speak": 0.0152,
+        "frac_speak_slow": 0.0,
+        "frac_speak_fast": 0.2443,
+        "frac_any_speech": 0.2595,
+        "response_latency_slots": 0.5748,
+        "n_episodes": 200
+      },
+      "rif:beta|tuned": {
+        "cost": 7.8885,
+        "cost_sem": 0.2852,
+        "overlap_slots": 0.905,
+        "bc_overlap_slots": 2.67,
+        "gap_slots": 20.655,
+        "dead_air_slots": 2.545,
+        "irrelevant_slots": 0.67,
+        "bargein": 0.545,
+        "turn_abandon": 0.325,
+        "reprompt": 0.3,
+        "frac_silent": 0.6869,
+        "frac_backchannel": 0.0536,
+        "frac_speak": 0.0152,
+        "frac_speak_slow": 0.0,
+        "frac_speak_fast": 0.2443,
+        "frac_any_speech": 0.2595,
+        "response_latency_slots": 0.5748,
+        "n_episodes": 200,
+        "chosen": "rif:beta|1.0"
+      }
+    }
+  }
+}

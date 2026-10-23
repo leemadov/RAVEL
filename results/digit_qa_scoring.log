@@ -1,0 +1,12 @@
+{
+ "n_questions": 200,
+ "ten_way_accuracy": 0.37,
+ "ten_way_accuracy_first3slots": 0.455,
+ "chance": 0.1,
+ "binom_p_all": 2.118398712613643e-24,
+ "binom_p_first3": 4.785480684690164e-38,
+ "repeat_wins_rate": 0.055,
+ "mean_ce_margin_true_vs_others": 0.032184799626055687,
+ "mean_ce_margin_first3": 0.10986017440342241,
+ "ckpt": "checkpoints/digit_qa/final.pt"
+}

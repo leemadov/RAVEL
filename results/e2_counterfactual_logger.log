@@ -1,0 +1,180 @@
+checkpoints/sim/e1_C_s0/final.pt {
+ "beta0": {
+  "n_decisions": 840,
+  "mae_all_actions": 0.7554820307883028,
+  "mae_logged_action": 0.6837505782888805,
+  "mae_untaken_actions": 0.7734148939131584,
+  "spearman_across_actions": 0.5654761904761904,
+  "best_action_agreement": 0.6190476190476191,
+  "regret_vs_true_best": 0.12465031410939732,
+  "regret_of_logged_action": 0.3884665627363058,
+  "mean_true_q_sem": 0.3072270691116755,
+  "event_prob_mae": {
+   "bargein": 0.032743960739476496,
+   "turn_abandon": 0.0592325999060302,
+   "reprompt": 0.00111519900972063
+  },
+  "user_vad_prob_mae": 0.25659849081370456
+ },
+ "beta0.5": {
+  "n_decisions": 840,
+  "mae_all_actions": 0.7554820307883028,
+  "mae_logged_action": 0.6837505782888805,
+  "mae_untaken_actions": 0.7734148939131584,
+  "spearman_across_actions": 0.5654761904761904,
+  "best_action_agreement": 0.6166666666666667,
+  "regret_vs_true_best": 0.12508316324651494,
+  "regret_of_logged_action": 0.3884665627363058,
+  "mean_true_q_sem": 0.3072270691116755,
+  "event_prob_mae": {
+   "bargein": 0.032743960739476496,
+   "turn_abandon": 0.0592325999060302,
+   "reprompt": 0.00111519900972063
+  },
+  "user_vad_prob_mae": 0.25659849081370456
+ }
+}
+checkpoints/sim/e1_C_s1/final.pt {
+ "beta0": {
+  "n_decisions": 840,
+  "mae_all_actions": 0.7954258639125982,
+  "mae_logged_action": 0.7341587719781492,
+  "mae_untaken_actions": 0.8107426368962105,
+  "spearman_across_actions": 0.5139285714285714,
+  "best_action_agreement": 0.5773809523809523,
+  "regret_vs_true_best": 0.15436486367346913,
+  "regret_of_logged_action": 0.3884665627363058,
+  "mean_true_q_sem": 0.3072270691116755,
+  "event_prob_mae": {
+   "bargein": 0.0316436531829753,
+   "turn_abandon": 0.05877657108316531,
+   "reprompt": 0.0010758941286347647
+  },
+  "user_vad_prob_mae": 0.2605013042956818
+ },
+ "beta0.5": {
+  "n_decisions": 840,
+  "mae_all_actions": 0.7954258639125982,
+  "mae_logged_action": 0.7341587719781492,
+  "mae_untaken_actions": 0.8107426368962105,
+  "spearman_across_actions": 0.5139285714285714,
+  "best_action_agreement": 0.5714285714285714,
+  "regret_vs_true_best": 0.15373115022686415,
+  "regret_of_logged_action": 0.3884665627363058,
+  "mean_true_q_sem": 0.3072270691116755,
+  "event_prob_mae": {
+   "bargein": 0.0316436531829753,
+   "turn_abandon": 0.05877657108316531,
+   "reprompt": 0.0010758941286347647
+  },
+  "user_vad_prob_mae": 0.2605013042956818
+ }
+}
+checkpoints/sim/e1_C_s2/final.pt {
+ "beta0": {
+  "n_decisions": 840,
+  "mae_all_actions": 0.7978215305446884,
+  "mae_logged_action": 0.734377852751889,
+  "mae_untaken_actions": 0.8136824499928882,
+  "spearman_across_actions": 0.514047619047619,
+  "best_action_agreement": 0.5523809523809524,
+  "regret_vs_true_best": 0.17582378757900355,
+  "regret_of_logged_action": 0.3884665627363058,
+  "mean_true_q_sem": 0.3072270691116755,
+  "event_prob_mae": {
+   "bargein": 0.031753443465886884,
+   "turn_abandon": 0.061612826449896345,
+   "reprompt": 0.0009782628362487295
+  },
+  "user_vad_prob_mae": 0.2640368673303497
+ },
+ "beta0.5": {
+  "n_decisions": 840,
+  "mae_all_actions": 0.7978215305446884,
+  "mae_logged_action": 0.734377852751889,
+  "mae_untaken_actions": 0.8136824499928882,
+  "spearman_across_actions": 0.514047619047619,
+  "best_action_agreement": 0.5571428571428572,
+  "regret_vs_true_best": 0.17673956108503605,
+  "regret_of_logged_action": 0.3884665627363058,
+  "mean_true_q_sem": 0.3072270691116755,
+  "event_prob_mae": {
+   "bargein": 0.031753443465886884,
+   "turn_abandon": 0.061612826449896345,
+   "reprompt": 0.0009782628362487295
+  },
+  "user_vad_prob_mae": 0.2640368673303497
+ }
+}
+checkpoints/sim/e1_Bcrit_s0/final.pt {
+ "beta0": {
+  "n_decisions": 840,
+  "mae_all_actions": 0.7694469317638009,
+  "mae_logged_action": 0.6999625479159732,
+  "mae_untaken_actions": 0.7868180277257578,
+  "spearman_across_actions": 0.5903571428571427,
+  "best_action_agreement": 0.6226190476190476,
+  "regret_vs_true_best": 0.12411393082000209,
+  "regret_of_logged_action": 0.3884665627363058,
+  "mean_true_q_sem": 0.3072270691116755
+ },
+ "beta0.5": {
+  "n_decisions": 840,
+  "mae_all_actions": 0.7694469317638009,
+  "mae_logged_action": 0.6999625479159732,
+  "mae_untaken_actions": 0.7868180277257578,
+  "spearman_across_actions": 0.5903571428571427,
+  "best_action_agreement": 0.6178571428571429,
+  "regret_vs_true_best": 0.12559939491615815,
+  "regret_of_logged_action": 0.3884665627363058,
+  "mean_true_q_sem": 0.3072270691116755
+ }
+}
+checkpoints/sim/e1_Bcrit_s1/final.pt {
+ "beta0": {
+  "n_decisions": 840,
+  "mae_all_actions": 0.7957080441682962,
+  "mae_logged_action": 0.7387713544685032,
+  "mae_untaken_actions": 0.8099422165932443,
+  "spearman_across_actions": 0.5561904761904761,
+  "best_action_agreement": 0.611904761904762,
+  "regret_vs_true_best": 0.1296946981354212,
+  "regret_of_logged_action": 0.3884665627363058,
+  "mean_true_q_sem": 0.3072270691116755
+ },
+ "beta0.5": {
+  "n_decisions": 840,
+  "mae_all_actions": 0.7957080441682962,
+  "mae_logged_action": 0.7387713544685032,
+  "mae_untaken_actions": 0.8099422165932443,
+  "spearman_across_actions": 0.5561904761904761,
+  "best_action_agreement": 0.611904761904762,
+  "regret_vs_true_best": 0.13003212347924664,
+  "regret_of_logged_action": 0.3884665627363058,
+  "mean_true_q_sem": 0.3072270691116755
+ }
+}
+checkpoints/sim/e1_Bcrit_s2/final.pt {
+ "beta0": {
+  "n_decisions": 840,
+  "mae_all_actions": 0.8224367395171969,
+  "mae_logged_action": 0.7502858491921969,
+  "mae_untaken_actions": 0.840474462098447,
+  "spearman_across_actions": 0.48833333333333323,
+  "best_action_agreement": 0.5333333333333333,
+  "regret_vs_true_best": 0.17575901530888144,
+  "regret_of_logged_action": 0.3884665627363058,
+  "mean_true_q_sem": 0.3072270691116755
+ },
+ "beta0.5": {
+  "n_decisions": 840,
+  "mae_all_actions": 0.8224367395171969,
+  "mae_logged_action": 0.7502858491921969,
+  "mae_untaken_actions": 0.840474462098447,
+  "spearman_across_actions": 0.48833333333333323,
+  "best_action_agreement": 0.5357142857142857,
+  "regret_vs_true_best": 0.17355612933255332,
+  "regret_of_logged_action": 0.3884665627363058,
+  "mean_true_q_sem": 0.3072270691116755
+ }
+}
