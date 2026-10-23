@@ -1,0 +1,1 @@
+checkpoints/sim/e3_C_s0/final.pt {'val_cost': {'rif:beta|0.0': 8.8833, 'rif:beta|0.5': 9.055, 'rif:beta|1.0': 8.8642}, 'rif:beta|0.0': 8.4922, 'rif:beta|0.5': 8.1333, 'rif:beta|1.0': 8.332, 'rif:beta|tuned': 8.332}

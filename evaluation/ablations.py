@@ -66,10 +66,18 @@ def mean_sem(vals):
             "per_seed": [round(float(x), 3) for x in v]}
 
 
-def evaluate_variant(paths, bank_val, val_specs, bank_test, test_specs, cfg, settings):
-    """settings: list of (key, mode, select, overrides). Tune on validation (training speakers), report test."""
+def evaluate_variant(paths, bank_val, val_specs, bank_test, test_specs, cfg, settings, cache_dir="results/cache"):
+    """settings: list of (key, mode, select, overrides). Tune on validation (training speakers), report test.
+    Per-checkpoint results are cached in cache_dir (keyed by checkpoint path and episode counts)."""
     out = {}
+    os.makedirs(cache_dir, exist_ok=True)
     for s_idx, p in enumerate(paths):
+        cpath = os.path.join(cache_dir, p.replace("/", "__") + f"__v{len(val_specs)}_t{len(test_specs)}.json")
+        if os.path.exists(cpath) and os.path.getmtime(cpath) > os.path.getmtime(p):
+            out[p] = json.load(open(cpath))
+            print("cached", p, flush=True)
+            continue
+        s_idx = int(p.split("_s")[-1].split("/")[0]) if "_s" in p else s_idx
         val = {}
         for key, mode, select, ov in settings:
             m = load(p, ov)
@@ -85,7 +93,16 @@ def evaluate_variant(paths, bank_val, val_specs, bank_test, test_specs, cfg, set
             best = min(keys, key=lambda k: val[k])
             out[p][g + "|tuned"] = dict(out[p][best], chosen=best)
         print(p, {k: (v["cost"] if isinstance(v, dict) and "cost" in v else v) for k, v in out[p].items()}, flush=True)
+        with open(cpath, "w") as f:
+            json.dump(out[p], f)
     return out
+
+
+def settings_for(v, args, clean):
+    if v == "B":
+        st = [("prior:greedy", "prior", "greedy", None), ("prior:sample", "prior", "sample", None)]
+        return st + [(f"prior:thresh|{t}", "prior", f"thresh{t}", None) for t in args.thetas]
+    return [(f"rif:beta|{b}", "rif", "greedy", dict(clean, **{"policy.beta_uncert": b})) for b in args.betas]
 
 
 def main():
@@ -102,6 +119,7 @@ def main():
     ap.add_argument("--no_refs", action="store_true")
     ap.add_argument("--threads", type=int, default=4)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--only_cache", nargs="*", default=None, help="evaluate+cache these variant:seed pairs and exit")
     args = ap.parse_args()
     torch.set_num_threads(args.threads)
     bank_test, users_test = get_bank(args.libri, split="test")
@@ -116,16 +134,18 @@ def main():
             res["references"][name] = summarize(run_reference(fac, bank_test, cfg, specs))
             print(name, res["references"][name]["cost"], flush=True)
     clean = {"policy.w_overlap": 0.0, "policy.alpha_relevance": 0.0, "policy.kappa_compute": 0.0}
+    if args.only_cache is not None:
+        for vs in args.only_cache:
+            v, sd = vs.split(":")
+            p = os.path.join(args.runs, f"{args.tag}_{v}_s{sd}", "final.pt")
+            evaluate_variant([p], bank_val, val_specs, bank_test, specs, cfg, settings_for(v, args, clean))
+        return
     for v in args.variants:
         paths = [p for p in (os.path.join(args.runs, f"{args.tag}_{v}_s{s}", "final.pt") for s in args.seeds) if os.path.exists(p)]
         if not paths:
             print("no checkpoints for", v)
             continue
-        if v == "B":
-            settings = [("prior:greedy", "prior", "greedy", None), ("prior:sample", "prior", "sample", None)]
-            settings += [(f"prior:thresh|{t}", "prior", f"thresh{t}", None) for t in args.thetas]
-        else:
-            settings = [(f"rif:beta|{b}", "rif", "greedy", dict(clean, **{"policy.beta_uncert": b})) for b in args.betas]
+        settings = settings_for(v, args, clean)
         per = evaluate_variant(paths, bank_val, val_specs, bank_test, specs, cfg, settings)
         res["per_checkpoint"].update(per)
         keys = [k for k in per[paths[0]] if k != "val_cost"]

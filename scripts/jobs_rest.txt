@@ -1,0 +1,3 @@
+checkpoints/stage1_ravel python3 training/train_acoustic.py --model ravel --steps 400 --batch 8 --slots 50 --threads 1 --out checkpoints/stage1_ravel
+checkpoints/digit_qa python3 training/digit_qa.py train --threads 1 --steps 2000 --batch 32 --out checkpoints/digit_qa
+checkpoints/stage1_baseA python3 training/train_acoustic.py --model baseline_a --steps 400 --batch 8 --slots 50 --threads 1 --out checkpoints/stage1_baseA

@@ -10,6 +10,22 @@ turn-taking behaviour beyond recurrence plus acoustic planning.
 > 4-core CPU container with **no GPU**. The target RTX 5070 was not available, so nothing here has been run on it.
 > See [RESULTS.md](RESULTS.md) for every number and its limitations.
 
+## Headline results (details and caveats in RESULTS.md)
+
+* **Main question — does the RIF help?** In a controlled duplex simulator built from real speech, with a rule-based
+  listener and 200 held-out-speaker episodes per model, the full RIF scored an interaction cost of **7.12 ± 0.39**. The
+  cost-only critic scored **11.11 ± 1.22**, and behaviour cloning without the RIF scored **14.44 ± 1.23**. Lower is
+  better; values are mean ± SEM over 3 seeds. The full RIF was better on all 3 seeds, but with n = 3 the difference
+  vs. the critic is **not statistically significant** (p ≈ 0.07–0.11). It does **not** beat a hand-written heuristic
+  (7.56), it did **not** learn to adapt its speaking rate to the listener, and the simulator's listener is not a human.
+* **Acoustic modelling (Stage 1, 400 CPU steps):** a parameter-matched conventional streaming AR model was *better*
+  (held-out CE 5.44 vs. 5.55 nats/token) and about 2× faster per step. Neither model produces intelligible speech yet.
+* **Planner:** its uncommitted slots are revised about 12× more right after a barge-in, but no behavioural benefit was
+  shown.
+* **Causality caveat (measured):** on states visited by the logging policy, the RIF's value predictions for untaken
+  actions are only slightly worse than for taken ones. However, it systematically underestimates the cost of speaking
+  into a mid-turn pause.
+
 ## What is in the box
 
 | subsystem | file | what it does |
@@ -35,7 +51,7 @@ work is VAP used as a user model (Ekstedt et al. 2023). Data and licences are in
 
 ```bash
 pip install -r requirements.txt          # encodec needs: pip install --use-pep517 encodec
-python -m pytest -q tests                # 34 unit tests (CPU, ~1 min; codec tests download EnCodec weights)
+python -m pytest -q tests                # unit tests (CPU, ~1-3 min; codec tests download EnCodec weights)
 python scripts/check_gpu.py              # verifies the installed torch build actually runs on your GPU (e.g. sm_120)
 python scripts/stage0_validate.py --device cuda --amp bf16   # forward/backward, peak memory, checkpoint round-trip
 bash scripts/run_experiments.sh          # every experiment in RESULTS.md (CPU: many hours)

@@ -1,0 +1,2 @@
+checkpoints/sim/e1_Bcrit_s1/final.pt {'val_cost': {'rif:beta|0.0': 14.0317, 'rif:beta|0.5': 14.095, 'rif:beta|1.0': 14.12}, 'rif:beta|0.0': 13.542, 'rif:beta|0.5': 13.4093, 'rif:beta|1.0': 13.5985, 'rif:beta|tuned': 13.542}
+checkpoints/sim/e1_C_s2/final.pt {'val_cost': {'rif:beta|0.0': 7.8308, 'rif:beta|0.5': 7.2583, 'rif:beta|1.0': 6.905}, 'rif:beta|0.0': 7.7502, 'rif:beta|0.5': 7.9245, 'rif:beta|1.0': 7.8885, 'rif:beta|tuned': 7.8885}

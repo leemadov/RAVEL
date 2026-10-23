@@ -20,8 +20,8 @@ from training.duplex_sim import EVENTS, SIM_ACTIONS, DuplexEpisode
 def _rollout_value(ep, pol, last, a, R, H, gamma, N, seed, a_logged=None):
     vals, evs, vads = [], [], []
     for r in range(R):
-        e2, p2 = copy.deepcopy(ep), copy.deepcopy(pol)
-        e2.b = ep.b
+        e2 = copy.deepcopy(ep, memo={id(ep.b): ep.b})  # share the (read-only, ~120 MB) audio bank
+        p2 = copy.deepcopy(pol)
         e2.rng = np.random.default_rng(seed + 7919 * r)
         p2.rng = np.random.default_rng(seed + 7919 * r + 1)
         p2.cur = pol.cur
@@ -47,7 +47,10 @@ def _rollout_value(ep, pol, last, a, R, H, gamma, N, seed, a_logged=None):
 
 @torch.no_grad()
 def counterfactual_eval(model, bank, cfg, specs, policy_factory, decision_every=10, R=16, H=75, gamma=0.96,
-                        min_slot=20):
+                        min_slot=20, driver: str = "logger"):
+    """driver='logger': the logging policy chooses the actions (states from the logging distribution).
+    driver='model': the model's own greedy RIF policy chooses them (states from the deployed policy's distribution);
+    rollouts still continue with the logging policy, because Q^{pi_b} is what the RIF cost head estimates."""
     names = model.cfg.actions
     N = model.cfg.rif.horizon_slots
     tps, tick = model.tps, model.cfg.audio.tick_samples
@@ -69,11 +72,15 @@ def counterfactual_eval(model, bank, cfg, specs, policy_factory, decision_every=
             o = None
             for j in range(tps):
                 o = sr.process_tick(mic[:, j * tick:(j + 1) * tick], ref[:, j * tick:(j + 1) * tick],
-                                    forced_tokens=sr.cur_tokens, forced_action=torch.tensor([0]),
+                                    forced_tokens=sr.cur_tokens,
+                                    forced_action=None if driver == "model" else torch.tensor([0]),
                                     intent=intent_prev if model.core.d_intent else None)
             intent_prev = torch.tensor([rec["intent"]]).float()
             last = rec
-            a_next = pol.act(last, ep)
+            a_next = pol.act(last, ep)  # always called so the logger's internal state stays a valid continuation
+            if driver == "model":
+                a_next = names[int(o["action"][0])]
+                pol.cur, pol.hold = a_next, 0
             if s >= min_slot and s % decision_every == 0:
                 summ = o["rif"]
                 truth = [_rollout_value(ep, pol, last, x, R, H, gamma, N, seed * 1000 + s, a_next) for x in SIM_ACTIONS]
@@ -116,6 +123,15 @@ def summarize_cf(rows, beta=0.5):
         "regret_of_logged_action": float((tq[np.arange(len(rows)), logged] - tq.min(1)).mean()),
         "mean_true_q_sem": float(np.mean([r["true_q_sem"] for r in rows])),
     }
+    # signed error of predicted cost for full-speech actions when the user is in a mid-turn hesitation pause:
+    # this is where a confounded logger (which only speaks at true turn ends) misleads an observational model
+    speech = [i for i, a in enumerate(SIM_ACTIONS) if a.startswith("speak")]
+    hes = np.array([r["ustate"] == "hesitating" for r in rows])
+    if hes.any():
+        out["n_hesitation_decisions"] = int(hes.sum())
+        out["bias_speech_at_hesitation"] = float((pq[hes][:, speech] - tq[hes][:, speech]).mean())
+        out["true_q_speech_at_hesitation"] = float(tq[hes][:, speech].mean())
+        out["pred_q_speech_at_hesitation"] = float(pq[hes][:, speech].mean())
     if "pred_events" in rows[0]:
         te = np.array([r["true_events"] for r in rows])  # (n, A, n_ev)
         pe = np.array([r["pred_events"] for r in rows])

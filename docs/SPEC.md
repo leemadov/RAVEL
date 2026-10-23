@@ -100,6 +100,12 @@ score_t(a) = Ê[cost|a] + w_ov P̂(overlap|a) + β std_e[cost|a] + κ compute(a)
 cloning and/or distillation of `softmax(−score/τ)` (stop-gradient). This is one-step greedy policy improvement
 over the logging policy with an uncertainty penalty (cf. MOPO / PETS-style pessimism), *not* a new RL algorithm.
 
+Decoding a behaviour-cloned prior (`select=`): `greedy` (argmax), `sample`, `hier` (argmax over action *modes*
+first) and `thresh<θ>` (speak iff Σ_{speech actions} π(a) > θ, then argmax within the chosen group). Plain argmax of a
+cloned turn-taking policy never starts speaking, because the logger spreads its onsets over time and over three
+rates, so at every single slot "silent" stays the most probable action. The experiments therefore tune θ on
+validation episodes for baseline B.
+
 **Gradients.** RIF parameters receive gradients only from their supervised outcome losses; the RIF summary passed to the
 planner is detached so planner/generator losses cannot distort the listener predictions. In `action_mode="gumbel"`
 the policy prior is sampled with a straight-through Gumbel-softmax, so planner/DNAG losses reach the prior logits

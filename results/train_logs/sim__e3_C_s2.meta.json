@@ -1,0 +1,21 @@
+{
+  "variant": "C",
+  "params": 7958257,
+  "args": {
+    "variant": "C",
+    "size": "micro",
+    "train": "data/sim_train_conf.pt",
+    "test": "data/sim_test.pt",
+    "out": "checkpoints/sim/e3_C_s2",
+    "steps": 1000,
+    "batch": 16,
+    "slots": 100,
+    "lr": 0.001,
+    "seed": 2,
+    "threads": 1,
+    "max_train_episodes": 0,
+    "override": []
+  },
+  "n_train_episodes": 2000,
+  "resumed": false
+}

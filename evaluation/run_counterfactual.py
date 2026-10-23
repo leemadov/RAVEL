@@ -23,6 +23,9 @@ def main():
     ap.add_argument("--R", type=int, default=16)
     ap.add_argument("--every", type=int, default=10)
     ap.add_argument("--threads", type=int, default=4)
+    ap.add_argument("--driver", default="logger", choices=["logger", "model"])
+    ap.add_argument("--logger", default="random_heuristic", choices=["random_heuristic", "confounded"],
+                    help="logging policy that drives the states and continues the rollouts")
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
     torch.set_num_threads(args.threads)
@@ -31,9 +34,12 @@ def main():
     specs = episode_specs(users, args.n_episodes, seed=4242)
     out = {}
     for p in args.ckpts:
-        m = load(p)
-        rows = counterfactual_eval(m, bank, cfg, specs, lambda r: HeuristicPolicy(r, eps=0.1),
-                                   decision_every=args.every, R=args.R)
+        # same decision rule as the closed-loop ablation (no extra overlap/relevance/compute terms, beta = 0.5)
+        m = load(p, {"policy.w_overlap": 0.0, "policy.alpha_relevance": 0.0, "policy.kappa_compute": 0.0,
+                     "policy.beta_uncert": 0.5})
+        conf = args.logger == "confounded"
+        rows = counterfactual_eval(m, bank, cfg, specs, lambda r: HeuristicPolicy(r, eps=0.1, confounded=conf),
+                                   decision_every=args.every, R=args.R, driver=args.driver)
         out[p] = {"beta0": summarize_cf(rows, 0.0), "beta0.5": summarize_cf(rows, 0.5)}
         print(p, json.dumps(out[p], indent=1), flush=True)
         torch.save(rows, os.path.splitext(args.out)[0] + "_" + p.replace("/", "_") + "_rows.pt")

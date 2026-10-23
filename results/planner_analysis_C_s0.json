@@ -1,0 +1,53 @@
+{
+  "ckpt": "checkpoints/sim/e1_C_s0/final.pt",
+  "n_episodes": 100,
+  "n_user_onsets": 900,
+  "n_onsets_while_ai_speaking": 96,
+  "mean_revision_all_decisions": 0.00663,
+  "mean_plan_activity_all_decisions": 0.46728,
+  "revision_locked_to_user_onset": {
+    "-3": 0.00533,
+    "-2": 0.00513,
+    "-1": 0.00562,
+    "0": 0.01736,
+    "1": 0.00445,
+    "2": 0.00447,
+    "3": 0.00476,
+    "4": 0.00452,
+    "5": 0.00584
+  },
+  "plan_activity_locked_to_user_onset": {
+    "-3": 0.33203,
+    "-2": 0.33771,
+    "-1": 0.34058,
+    "0": 0.23293,
+    "1": 0.23629,
+    "2": 0.25498,
+    "3": 0.27011,
+    "4": 0.28239,
+    "5": 0.30122
+  },
+  "revision_locked_to_onset_while_ai_speaking": {
+    "-3": 0.00884,
+    "-2": 0.00756,
+    "-1": 0.01833,
+    "0": 0.09671,
+    "1": 0.0047,
+    "2": 0.00593,
+    "3": 0.00564,
+    "4": 0.00352,
+    "5": 0.00775
+  },
+  "plan_activity_locked_to_onset_while_ai_speaking": {
+    "-3": 0.85188,
+    "-2": 0.87539,
+    "-1": 0.77182,
+    "0": 0.18578,
+    "1": 0.2163,
+    "2": 0.26119,
+    "3": 0.26623,
+    "4": 0.27459,
+    "5": 0.28758
+  },
+  "note": "offset 0 = decision at the end of the first user-active slot (decision d uses audio up to slot d)"
+}

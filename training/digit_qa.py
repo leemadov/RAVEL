@@ -72,7 +72,8 @@ class DigitEpisodes:
         d = torch.load(data_path, weights_only=False)
         self.silence = d["silence"].long()
         takes = range(0, 40) if split == "train" else range(40, 50)
-        self.users = [c for s in USERS for c in d["clips"][s] if c["take"] in takes]
+        # drop rare outlier recordings longer than 0.8 s (20 slots) so every episode fits in S_EP slots
+        self.users = [c for s in USERS for c in d["clips"][s] if c["take"] in takes and len(c["wav"]) <= 20 * SLOT]
         ai = [c for c in d["clips"][AI_SPK] if c["take"] < 40]  # AI answers always from training takes
         self.ai_by_digit = {k: [c for c in ai if c["digit"] == k] for k in range(10)}
         self.rng = np.random.default_rng(seed)
@@ -297,9 +298,76 @@ def evaluate(data_path, ckpt, clf_path, out, n=250, temperature=0.7, seed=0, mod
     return rep
 
 
+@torch.no_grad()
+def answer_scoring(data_path, ckpt, out, n=200, seed=0):
+    """Does the model's prediction depend on the spoken question in the right way, independently of sampling
+    quality? For each held-out question, build the 10 episodes that differ ONLY in which digit the AI answers
+    (same user audio, same answer timing, a random training take of that digit), and compute the teacher-forced DNAG
+    cross-entropy on the answer slots. 10-way accuracy = how often the correct successor digit gets the lowest CE
+    (chance 10%). Also reports how often the *repeated* user digit wins."""
+    from ravel.config import from_dict
+    from ravel.model import RAVEL
+    ck = torch.load(ckpt, weights_only=False)
+    model = RAVEL(from_dict(ck["config"])).eval()
+    model.load_state_dict(ck["model"])
+    ds = DigitEpisodes(data_path, "test", seed)
+    rng = np.random.default_rng(seed)
+    correct = repeat = correct3 = 0
+    margins, margins3 = [], []
+    for i in range(n):
+        u = ds.users[(i * len(ds.users)) // n]
+        base_seed = int(rng.integers(1 << 30))
+        eps = []
+        for cand in range(10):
+            r = np.random.default_rng(base_seed)  # identical lead/gap/echo for all candidates
+            e = ds.episode(r, u)
+            a = ds.ai_by_digit[cand][int(np.random.default_rng(base_seed + cand).integers(len(ds.ai_by_digit[cand])))]
+            # rebuild the AI channel with candidate answer `cand` at the same start slot
+            a_start, a_slots = e["a_start"], min(len(a["wav"]) // SLOT, S_EP - e["a_start"])
+            ai = np.zeros(S_EP * SLOT, np.float32)
+            ai[a_start * SLOT:(a_start + a_slots) * SLOT] = a["wav"][: a_slots * SLOT]
+            tok = ds.silence[None].repeat(S_EP, 1, 1).clone()
+            tok[a_start:a_start + a_slots] = a["tokens"][: 3 * a_slots].long().view(a_slots, 3, -1)
+            act = np.zeros(S_EP, np.int64)
+            act[a_start:a_start + a_slots] = 1
+            mic = e["user"] + np.concatenate([np.zeros(96, np.float32), ai[:-96]]) * e["echo_gain"]
+            eps.append((mic, ai, tok, act, a_start, a_slots))
+        mic = torch.from_numpy(np.stack([x[0] for x in eps]))
+        ref = torch.from_numpy(np.stack([x[1] for x in eps]))
+        b = {"mic_mel": ds.mel(mic), "ref_mel": ds.mel(ref), "ai_tokens": torch.stack([x[2] for x in eps]),
+             "actions": torch.from_numpy(np.stack([x[3] for x in eps]))}
+        res = model.forward_train(b)
+        lg, tg = model.dnag_logits(res, b["ai_tokens"])
+        ce = F.cross_entropy(lg.reshape(-1, lg.shape[-1]), tg.reshape(-1), reduction="none").view(10, S_EP - 1, -1).mean(-1)
+        scores, scores3 = [], []
+        for c_, x in enumerate(eps):
+            a_start, a_slots = x[4], x[5]
+            scores.append(float(ce[c_, a_start - 1:a_start - 1 + a_slots].mean()))  # decision d predicts slot d+1
+            # first 3 answer slots: before the model's own (teacher-forced) output reveals which digit it is saying
+            scores3.append(float(ce[c_, a_start - 1:a_start + 2].mean()))
+        scores, scores3 = np.array(scores), np.array(scores3)
+        target = (u["digit"] + 1) % 10
+        correct += int(scores.argmin() == target)
+        correct3 += int(scores3.argmin() == target)
+        repeat += int(scores.argmin() == u["digit"])
+        margins.append(float(np.delete(scores, target).mean() - scores[target]))
+        margins3.append(float(np.delete(scores3, target).mean() - scores3[target]))
+    from scipy.stats import binomtest
+    rep = {"n_questions": n, "ten_way_accuracy": correct / n, "ten_way_accuracy_first3slots": correct3 / n,
+           "chance": 0.1, "binom_p_all": binomtest(correct, n, 0.1, alternative="greater").pvalue,
+           "binom_p_first3": binomtest(correct3, n, 0.1, alternative="greater").pvalue,
+           "repeat_wins_rate": repeat / n, "mean_ce_margin_true_vs_others": float(np.mean(margins)),
+           "mean_ce_margin_first3": float(np.mean(margins3)), "ckpt": ckpt}
+    print(json.dumps(rep, indent=1))
+    if out:
+        with open(out, "w") as f:
+            json.dump(rep, f, indent=2)
+    return rep
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["prepare", "classifier", "train", "eval"])
+    ap.add_argument("cmd", choices=["prepare", "classifier", "train", "eval", "score"])
     ap.add_argument("--fsdd", default="/home/user/ravel_data/fsdd_dl/fsdd/recordings")
     ap.add_argument("--data", default="data/fsdd24k.pt")
     ap.add_argument("--out", default=None)
@@ -320,6 +388,8 @@ def main():
         train_classifier(a.data, a.out or a.clf)
     elif a.cmd == "train":
         train(a.data, a.out, a.steps, a.batch, a.seed, a.threads)
+    elif a.cmd == "score":
+        answer_scoring(a.data, a.ckpt, a.out, a.n, a.seed)
     else:
         evaluate(a.data, a.ckpt, a.clf, a.out, a.n, a.temperature, a.seed, a.mode)
 
