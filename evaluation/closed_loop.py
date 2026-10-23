@@ -25,6 +25,7 @@ def episode_metrics(recs: list[dict]) -> dict:
     acts = [r["action"] for r in recs]
     for a in SIM_ACTIONS:
         m["frac_" + a] = acts.count(a) / len(acts)
+    m["frac_any_speech"] = sum(a.startswith("speak") for a in acts) / len(acts)
     # response latency: slots from user turn completion ("waiting" entered) to first AI speech slot
     lat, waiting_since = [], None
     for i, r in enumerate(recs):
@@ -69,7 +70,7 @@ def run_reference(policy_factory, bank, cfg, specs) -> list[dict]:
         recs, last = [], None
         for _ in range(cfg.episode_slots):
             a = pol.act(last, ep)
-            last = ep.step(a, render=False)
+            last = ep.step(a, render=True)  # render consumes episode RNG; keep identical to model runs
             last["action"] = a
             recs.append(last)
         out.append(episode_metrics(recs))
@@ -77,8 +78,10 @@ def run_reference(policy_factory, bank, cfg, specs) -> list[dict]:
 
 
 @torch.no_grad()
-def run_model(model, bank, cfg, specs, mode: str = "rif", batch: int = 50, return_traces: bool = False):
-    """mode: 'rif' (RIF scores) or 'prior' (learned policy head)."""
+def run_model(model, bank, cfg, specs, mode: str = "rif", batch: int = 50, return_traces: bool = False,
+              select: str = "greedy", seed: int = 0):
+    """mode: 'rif' (RIF scores) or 'prior' (learned policy head); select: greedy | hier | sample."""
+    torch.manual_seed(seed)
     names = model.cfg.actions
     assert names == SIM_ACTIONS, "model must use the simulator action set"
     tps, tick = model.tps, model.cfg.audio.tick_samples
@@ -87,7 +90,8 @@ def run_model(model, bank, cfg, specs, mode: str = "rif", batch: int = 50, retur
         sp = specs[b0:b0 + batch]
         B = len(sp)
         eps = [DuplexEpisode(bank, cfg, np.random.default_rng(seed), spk, ut) for spk, ut, seed in sp]
-        sr = StreamingRAVEL(model, codec=None, decide_mode=mode, silence_tokens=torch.from_numpy(bank.silence_tokens).long())
+        sr = StreamingRAVEL(model, codec=None, decide_mode=mode, silence_tokens=torch.from_numpy(bank.silence_tokens).long(),
+                            select=select)
         sr.reset(B)
         acts = ["silent"] * B
         intent_prev = torch.zeros(B, 2)
@@ -108,9 +112,17 @@ def run_model(model, bank, cfg, specs, mode: str = "rif", batch: int = 50, retur
                                     forced_tokens=sr.cur_tokens, intent=intent_prev if model.core.d_intent else None)
             intent_prev = torch.tensor([r["intent"] for r in rs]).float()
             acts = [names[i] for i in o["action"].tolist()]
-            if return_traces and o["rif"] is not None:
+            if return_traces:
+                pinfo = o["decision"]["pinfo"]
+                act_p = torch.sigmoid(model.planner.activity(o["decision"]["P"]).squeeze(-1))
                 for i in range(B):
-                    tr[i].append({k: v[i].numpy() for k, v in o["rif"].items()})
+                    t = {"revision": pinfo["revision"][i].numpy(), "gate": pinfo["gate"][i].numpy(),
+                         "plan_activity": act_p[i].numpy(), "user_active": rs[i]["user_active"],
+                         "ai_speech": rs[i]["ai_speech"], "bargein": rs[i]["events"]["bargein"],
+                         "p_user": float(o["p_user"][i])}
+                    if o["rif"] is not None:
+                        t.update({k: v[i].numpy() for k, v in o["rif"].items()})
+                    tr[i].append(t)
         out += [episode_metrics(r) for r in recs]
         traces += tr
     return (out, traces) if return_traces else out

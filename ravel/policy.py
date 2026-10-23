@@ -30,6 +30,7 @@ class InteractionPolicy(nn.Module):
         self.relevance = nn.Sequential(nn.Linear(d_a + d_m, d_hidden // 2), nn.GELU(), nn.Linear(d_hidden // 2, 1))
         self.register_buffer("compute_cost", space.compute_cost.clone(), persistent=False)
         self.register_buffer("is_speech", space.is_speech.float(), persistent=False)
+        self.register_buffer("mode_of", space.mode.clone(), persistent=False)
 
     def prior_logits(self, y_h, y_a, y_i, m) -> torch.Tensor:
         return self.prior(torch.cat([y_h, y_a, y_i, m], -1))
@@ -48,9 +49,28 @@ class InteractionPolicy(nn.Module):
         p = self.pcfg
         return -score / p.temperature + p.prior_weight * F.log_softmax(prior_logits, -1)
 
-    @staticmethod
-    def select(logits: torch.Tensor, mode: str = "greedy", tau: float = 1.0):
-        """Returns (index (B,), one-hot-like weights (B, C)); 'gumbel' is straight-through."""
+    def select(self, logits: torch.Tensor, mode: str = "greedy", tau: float = 1.0):
+        """Returns (index (B,), one-hot-like weights (B, C)); 'gumbel' is straight-through.
+        'hier' = hierarchical argmax for a *distribution* over factorised actions: pick the most probable action
+        mode (silent / yield / backchannel / speak, summing over rates & emphasis), then the best action within it.
+        Plain argmax of a behaviour-cloned policy can never pick 'speak' if the logger split speech across rates."""
+        if mode.startswith("thresh"):
+            # thresholded decoding of a behaviour-cloned policy: speak iff P(any speech action) > theta
+            theta = float(mode[len("thresh"):])
+            p = torch.softmax(logits, -1)
+            speech = self.mode_of == 3
+            p_speech = (p * speech).sum(-1)
+            go = p_speech > theta
+            masked = logits.masked_fill(speech[None] != go[:, None], float("-inf"))
+            idx = masked.argmax(-1)
+            return idx, F.one_hot(idx, logits.shape[-1]).to(logits.dtype)
+        if mode == "hier":
+            p = torch.softmax(logits, -1)
+            groups = torch.zeros(p.shape[0], 4, device=p.device, dtype=p.dtype).index_add_(1, self.mode_of, p)
+            best = groups.argmax(-1)
+            masked = logits.masked_fill(self.mode_of[None] != best[:, None], float("-inf"))
+            idx = masked.argmax(-1)
+            return idx, F.one_hot(idx, logits.shape[-1]).to(logits.dtype)
         if mode == "greedy":
             idx = logits.argmax(-1)
             return idx, F.one_hot(idx, logits.shape[-1]).to(logits.dtype)

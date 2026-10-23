@@ -19,10 +19,12 @@ from ravel.influence_field import ReciprocalInfluenceField
 
 class StreamingRAVEL:
     def __init__(self, model, codec=None, decide_mode: str = "rif", temperature: float = 0.8, top_k: int | None = 50,
-                 greedy: bool = False, decode_context_frames: int = 75, silence_tokens: torch.Tensor | None = None):
+                 greedy: bool = False, decode_context_frames: int = 75, silence_tokens: torch.Tensor | None = None,
+                 select: str = "greedy"):
         self.m = model.eval()
         self.codec = codec
         self.decide_mode, self.temperature, self.top_k, self.greedy = decide_mode, temperature, top_k, greedy
+        self.select = select  # action selection: greedy | hier | sample
         self.ctx_frames = decode_context_frames
         c = model.cfg.codec
         if silence_tokens is None:
@@ -69,7 +71,7 @@ class StreamingRAVEL:
         if phase != tps - 1:
             self.timings.append(time.perf_counter() - t0)
             return None
-        out = m.decide(self.core_state, self.P, self.decide_mode, "greedy", forced_action)
+        out = m.decide(self.core_state, self.P, self.decide_mode, self.select, forced_action)
         self.P, a = out["P"], out["idx"]
         if forced_tokens is not None:
             tokens = forced_tokens
