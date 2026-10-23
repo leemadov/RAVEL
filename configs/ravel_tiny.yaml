@@ -1,0 +1,77 @@
+# RAVEL-Tiny V2.1 — default configuration (~50M trainable parameters).
+# Frozen codec parameters (EnCodec 24 kHz, ~14.9M) are NOT counted.
+name: ravel_tiny_v2.1
+
+audio:
+  sample_rate: 24000
+  tick_samples: 480        # 20 ms perception tick
+  ticks_per_slot: 2        # 40 ms planning/commit slot
+  n_fft: 1024              # 42.7 ms causal analysis window (ends at the tick boundary)
+  n_mels: 80
+  f_min: 40.0
+  f_max: 12000.0
+
+codec:
+  name: encodec_24khz      # frozen, causal, 75 Hz -> exactly 3 frames per 40 ms slot
+  hop: 320
+  frames_per_slot: 3
+  n_q: 4                   # 3 kbps
+  vocab: 1024
+  bandwidth: 3.0
+
+actions: [silent, yield, backchannel, speak, speak_slow, speak_fast, speak_emph]
+
+apf:
+  d_model: 384
+  kernel: 3
+  dilations: [1, 2, 4, 8, 1, 2, 4, 8]
+  dropout: 0.0
+  apc_offset_ticks: 3      # future-mel prediction offset (60 ms)
+
+core:
+  d_h: 640
+  d_a: 640
+  d_i: 320
+  d_m: 512
+  d_couple: 192
+  d_act: 64
+  slow_every: 10           # slow conversational memory clock: 200 ms
+  ffn_mult: 3
+  lru_c: 8.0
+
+feedback:
+  d_f: 320
+
+rif:
+  enabled: true
+  listener_heads: true     # false => scalar-cost critic only (ablation "B-critic")
+  d_hidden: 640
+  d_head: 384
+  n_layers: 2
+  horizon_slots: 12        # 480 ms of listener-behaviour prediction
+  n_ensemble: 4
+  bootstrap: 0.8
+  gamma: 0.96              # per-slot discount of the cost-to-go target
+  events: [bargein, turn_abandon, reprompt]
+
+policy:
+  w_overlap: 1.0           # extra weight on P(overlap)
+  beta_uncert: 0.5         # pessimism: penalty on ensemble std of cost
+  alpha_relevance: 0.2     # bonus for speaking when the AI has relevant content
+  kappa_compute: 0.01      # per-action compute cost
+  temperature: 0.1
+  prior_weight: 0.0        # weight of the learned (BC/distilled) prior in RIF mode
+
+planner:
+  enabled: true
+  n_slots: 8               # 8 x 40 ms = 320 ms editable horizon
+  d_slot: 512
+  n_layers: 2
+  n_heads: 8
+  probe_codebooks: 1       # cheap multi-horizon probe for slots k>=1
+
+dnag:
+  d_model: 640
+
+train:
+  checkpoint_activations: false

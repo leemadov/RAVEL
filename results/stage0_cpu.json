@@ -1,0 +1,59 @@
+{
+  "device": "cpu",
+  "torch": "2.9.0+cpu",
+  "amp": "none",
+  "params": {
+    "apf": 8067537,
+    "act_emb": 576,
+    "feedback": 1724160,
+    "core": 14374464,
+    "rif": 6159096,
+    "policy": 863048,
+    "planner": 8944642,
+    "dnag": 11073280,
+    "total": 51206803
+  },
+  "checkpoint_activations": false,
+  "runs": [
+    {
+      "B": 2,
+      "S": 25,
+      "seconds_audio_per_seq": 1.0,
+      "step_time_s": 1.718,
+      "loss": 18.077,
+      "finite": true,
+      "peak_mem_gb": null,
+      "process_max_rss_gb": 1.344
+    },
+    {
+      "B": 4,
+      "S": 50,
+      "seconds_audio_per_seq": 2.0,
+      "step_time_s": 4.571,
+      "loss": 21.132,
+      "finite": true,
+      "peak_mem_gb": null,
+      "process_max_rss_gb": 1.792
+    },
+    {
+      "B": 8,
+      "S": 50,
+      "seconds_audio_per_seq": 2.0,
+      "step_time_s": 5.503,
+      "loss": 19.574,
+      "finite": true,
+      "peak_mem_gb": null,
+      "process_max_rss_gb": 2.25
+    }
+  ],
+  "checkpoint": {
+    "identical_outputs": true,
+    "file_mb": 586.2
+  },
+  "stream_tick_ms": {
+    "mean": 25.51,
+    "p95": 47.66,
+    "max": 63.4,
+    "note": "decision ticks include RIF+planner+DNAG"
+  }
+}
