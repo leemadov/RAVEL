@@ -154,3 +154,27 @@ checkpoints/sim/e1_Bcrit_s1/final.pt {
   "mean_true_q_sem": 0.3072270691116755
  }
 }
+checkpoints/sim/e1_Bcrit_s2/final.pt {
+ "beta0": {
+  "n_decisions": 840,
+  "mae_all_actions": 0.8224367395171969,
+  "mae_logged_action": 0.7502858491921969,
+  "mae_untaken_actions": 0.840474462098447,
+  "spearman_across_actions": 0.48833333333333323,
+  "best_action_agreement": 0.5333333333333333,
+  "regret_vs_true_best": 0.17575901530888144,
+  "regret_of_logged_action": 0.3884665627363058,
+  "mean_true_q_sem": 0.3072270691116755
+ },
+ "beta0.5": {
+  "n_decisions": 840,
+  "mae_all_actions": 0.8224367395171969,
+  "mae_logged_action": 0.7502858491921969,
+  "mae_untaken_actions": 0.840474462098447,
+  "spearman_across_actions": 0.48833333333333323,
+  "best_action_agreement": 0.5357142857142857,
+  "regret_vs_true_best": 0.17355612933255332,
+  "regret_of_logged_action": 0.3884665627363058,
+  "mean_true_q_sem": 0.3072270691116755
+ }
+}

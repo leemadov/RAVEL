@@ -1,0 +1,140 @@
+{
+  "mode": "policy",
+  "n_episodes": 250,
+  "spoke_rate": 1.0,
+  "answer_accuracy": 0.86,
+  "answer_accuracy_given_spoke": 0.86,
+  "repeat_user_digit_rate": 0.032,
+  "chance": 0.1,
+  "onset_delay_slots_mean": 5.448,
+  "speech_slots_mean": 12.236,
+  "classifier_report": {
+    "heldout_real_acc": 0.9933333396911621,
+    "heldout_codec_roundtrip_acc": 0.9666666388511658,
+    "heldout_ai_voice_roundtrip_acc": 1.0,
+    "n_test": 300
+  },
+  "confusion_target_x_pred": [
+    [
+      23,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      1,
+      24,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1
+    ],
+    [
+      0,
+      0,
+      24,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      4,
+      21,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      3,
+      0,
+      1,
+      17,
+      0,
+      1,
+      1,
+      0,
+      2
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      19,
+      0,
+      4,
+      0,
+      1
+    ],
+    [
+      0,
+      0,
+      1,
+      0,
+      0,
+      2,
+      22,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      2,
+      0,
+      0,
+      21,
+      1,
+      1
+    ],
+    [
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      24,
+      0
+    ],
+    [
+      0,
+      2,
+      0,
+      0,
+      1,
+      0,
+      0,
+      2,
+      0,
+      20
+    ]
+  ],
+  "temperature": 0.7
+}

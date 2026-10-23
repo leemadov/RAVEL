@@ -1,0 +1,22 @@
+{
+  "confounded_logger_eps0.1": {
+    "cost": 22.071,
+    "cost_sem": 0.5569,
+    "overlap_slots": 16.195,
+    "bc_overlap_slots": 10.365,
+    "gap_slots": 7.95,
+    "dead_air_slots": 8.05,
+    "irrelevant_slots": 2.615,
+    "bargein": 0.385,
+    "turn_abandon": 0.415,
+    "reprompt": 0.01,
+    "frac_silent": 0.5099,
+    "frac_backchannel": 0.114,
+    "frac_speak": 0.1289,
+    "frac_speak_slow": 0.1207,
+    "frac_speak_fast": 0.1266,
+    "frac_any_speech": 0.3761,
+    "response_latency_slots": 0.6946,
+    "n_episodes": 200
+  }
+}

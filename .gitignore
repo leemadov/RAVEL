@@ -7,3 +7,5 @@ data/
 *.wav
 *.pt
 !results/**/*.json
+!results/digit_qa_policy_examples/
+!results/digit_qa_policy_examples/*.wav

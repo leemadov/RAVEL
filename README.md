@@ -18,13 +18,18 @@ turn-taking behaviour beyond recurrence plus acoustic planning.
   better; values are mean ± SEM over 3 seeds. The full RIF was better on all 3 seeds, but with n = 3 the difference
   vs. the critic is **not statistically significant** (p ≈ 0.07–0.11). It does **not** beat a hand-written heuristic
   (7.56), it did **not** learn to adapt its speaking rate to the listener, and the simulator's listener is not a human.
+* **Spoken input → spoken answer (toy):** on a spoken-digit "say the next number" task (FSDD), measured closed-loop
+  and audio-only by an independent classifier, RAVEL answered correctly in **86%** of 250 held-out questions (chance
+  10%) and chose its own turn timing. It is a 10-word closed world, not open-domain QA.
+* **Confounding (measured):** the same RIF trained on logs from a logger that could see hidden state performed worse
+  when deployed (8.49 vs. 7.12 on 3/3 seeds), because it learned to speak slowly to everyone. Observational listener
+  prediction is not causal knowledge.
+* **Latency:** on 4 CPU cores RAVEL-Tiny is **not real time**: 46 ms of compute per 40 ms slot, or 98 ms with streaming
+  codec decoding. GPU latency is unmeasured.
 * **Acoustic modelling (Stage 1, 400 CPU steps):** a parameter-matched conventional streaming AR model was *better*
   (held-out CE 5.44 vs. 5.55 nats/token) and about 2× faster per step. Neither model produces intelligible speech yet.
 * **Planner:** its uncommitted slots are revised about 12× more right after a barge-in, but no behavioural benefit was
   shown.
-* **Causality caveat (measured):** on states visited by the logging policy, the RIF's value predictions for untaken
-  actions are only slightly worse than for taken ones. However, it systematically underestimates the cost of speaking
-  into a mid-turn pause.
 
 ## What is in the box
 
