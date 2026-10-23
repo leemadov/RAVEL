@@ -50,7 +50,8 @@ class StreamingRAVEL:
 
     @torch.no_grad()
     def process_tick(self, mic_chunk: torch.Tensor, ref_chunk: torch.Tensor | None = None,
-                     forced_action: torch.Tensor | None = None, forced_tokens: torch.Tensor | None = None):
+                     forced_action: torch.Tensor | None = None, forced_tokens: torch.Tensor | None = None,
+                     intent: torch.Tensor | None = None):
         """mic_chunk (B, 480). Returns None mid-slot, or a dict for the slot that will be played next."""
         t0 = time.perf_counter()
         m, tps = self.m, self.m.tps
@@ -63,7 +64,7 @@ class StreamingRAVEL:
         p_user = torch.sigmoid(aux["user_vad_logit"])  # (B, 1)
         f = m.feedback.step(self.cur_tokens, self.cur_action, phase)
         act = m.act_emb(self.cur_action)
-        self.core_state = m.core.step(self.core_state, z[:, 0], p_user, f, act, self.P.mean(1))
+        self.core_state = m.core.step(self.core_state, z[:, 0], p_user, f, act, self.P.mean(1), intent)
         self.tick += 1
         if phase != tps - 1:
             self.timings.append(time.perf_counter() - t0)

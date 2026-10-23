@@ -138,10 +138,22 @@ def test_targets_and_returns():
     c = torch.tensor([[1.0, 0.0, 2.0]])
     G = discounted_returns(c, 0.5)
     assert torch.allclose(G, torch.tensor([[1.5, 1.0, 2.0]]))
-    batch = {"user_vad": torch.tensor([[0, 0, 1, 1, 0, 0]]).float(), "ai_active": torch.tensor([[1, 1, 1, 0, 0, 0]]).float()}
+    batch = {"user_vad": torch.tensor([[0, 0, 1, 1, 0, 0]]).float(), "ai_active": torch.tensor([[1, 1, 1, 0, 0, 0]]).float(),
+             "actions": torch.zeros(1, 6, dtype=torch.long)}
     tg = rif_targets(batch, N=3, gamma=0.9, min_tail=0)
     # decision 0 looks at slots 1,2,3 -> user active at 2,3 -> onset k=1, overlap at slot 2
     assert tg["vad"][0, 0].tolist() == [0, 1, 1]
     assert tg["onset"][0, 0] == 1 and tg["overlap"][0, 0] == 1
     # decision 3 looks at slots 4,5,(6 out of range) -> no onset in observed part, horizon not complete
     assert tg["onset"][0, 3] == 3 and tg["onset_mask"][0, 3] == 0 and tg["horizon_mask"][0, 3] == 0
+
+
+def test_targets_with_lookahead_labels():
+    """Labels extending past the input crop keep horizon targets valid near the crop end."""
+    uv = torch.tensor([[0, 0, 0, 0, 1, 1, 0, 0]]).float()
+    batch = {"user_vad": uv, "ai_active": torch.zeros(1, 8), "actions": torch.zeros(1, 4, dtype=torch.long),
+             "label_valid": torch.tensor([[1, 1, 1, 1, 1, 1, 1, 0]]).float()}
+    tg = rif_targets(batch, N=3, gamma=0.9, min_tail=0)
+    assert tg["vad"].shape == (1, 3, 3)
+    # decision 2 looks at slots 3,4,5 (beyond the 4 input slots) -> onset at k=1, horizon complete
+    assert tg["onset"][0, 2] == 1 and tg["horizon_mask"][0, 2] == 1

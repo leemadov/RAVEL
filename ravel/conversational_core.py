@@ -53,7 +53,8 @@ class GatedLRUCell(nn.Module):
 
 class DualStateCore(nn.Module):
     def __init__(self, d_z: int, d_f: int, d_act: int, d_plan: int, d_h: int, d_a: int, d_i: int,
-                 d_m: int, d_couple: int, slow_every: int, ffn_mult: int = 3, lru_c: float = 8.0):
+                 d_m: int, d_couple: int, slow_every: int, ffn_mult: int = 3, lru_c: float = 8.0,
+                 d_intent: int = 0):
         super().__init__()
         dc = d_couple
         self.dims = dict(h=d_h, a=d_a, i=d_i, m=d_m)
@@ -65,7 +66,8 @@ class DualStateCore(nn.Module):
                                                   nn.Linear(d_plan, dc), nn.Linear(d_m, dc))
         self.cell_h = GatedLRUCell(d_z + 3 * dc + 1, d_h, lru_c, (0.8, 0.995), ffn_mult)
         self.cell_i = GatedLRUCell(2 * dc + d_f + d_act + 1, d_i, lru_c, (0.6, 0.98), ffn_mult)
-        self.cell_a = GatedLRUCell(4 * dc + d_f, d_a, lru_c, (0.9, 0.9995), ffn_mult)
+        self.d_intent = d_intent
+        self.cell_a = GatedLRUCell(4 * dc + d_f + d_intent, d_a, lru_c, (0.9, 0.9995), ffn_mult)
         self.slow = nn.GRUCell(d_h + d_a + d_i, d_m)
 
     def init_state(self, batch: int, device=None) -> dict:
@@ -77,13 +79,17 @@ class DualStateCore(nn.Module):
                 "m": z(d["m"]), "acc": z(d["h"] + d["a"] + d["i"]), "tick": 0}
 
     def step(self, st: dict, z: torch.Tensor, p_user: torch.Tensor, f: torch.Tensor,
-             act: torch.Tensor, plan_sum: torch.Tensor) -> dict:
-        """One 20 ms tick.  z (B,d_z), p_user (B,1), f (B,d_f), act (B,d_act), plan_sum (B,d_plan)."""
+             act: torch.Tensor, plan_sum: torch.Tensor, intent: torch.Tensor | None = None) -> dict:
+        """One 20 ms tick.  z (B,d_z), p_user (B,1), f (B,d_f), act (B,d_act), plan_sum (B,d_plan),
+        intent (B,d_intent) optional AI-private intent (what it still has to say)."""
         u_h = torch.cat([z, self.a2h(st["y_a"]), self.i2h(st["y_i"]), self.m2h(st["m"]), p_user], -1)
         s_h, y_h = self.cell_h(u_h, st["s_h"])
         u_i = torch.cat([self.h2i(y_h), self.a2i(st["y_a"]), f, act, p_user], -1)
         s_i, y_i = self.cell_i(u_i, st["s_i"])
-        u_a = torch.cat([self.h2a(y_h), self.i2a(y_i), self.p2a(plan_sum), self.m2a(st["m"]), f], -1)
+        u_a = [self.h2a(y_h), self.i2a(y_i), self.p2a(plan_sum), self.m2a(st["m"]), f]
+        if self.d_intent:
+            u_a.append(intent if intent is not None else f.new_zeros(f.shape[0], self.d_intent))
+        u_a = torch.cat(u_a, -1)
         s_a, y_a = self.cell_a(u_a, st["s_a"])
         acc = st["acc"] + torch.cat([y_h, y_a, y_i], -1)
         tick = st["tick"] + 1

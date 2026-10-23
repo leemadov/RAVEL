@@ -29,32 +29,39 @@ def discounted_returns(c: torch.Tensor, gamma: float) -> torch.Tensor:
 
 
 def rif_targets(batch: dict, N: int, gamma: float, min_tail: int) -> dict:
-    """Build horizon targets for every decision d (B, D, ...) from per-slot labels."""
+    """Build horizon targets for every decision d (B, D, ...) from per-slot labels.
+
+    Label arrays (user_vad, ai_active, events) may extend beyond the S input slots (look-ahead) with an
+    optional `label_valid` (B, L) mask; `cost_to_go` (B, S) may be precomputed on whole episodes.
+    """
+    S = batch["actions"].shape[1]
     uv, aa = batch["user_vad"].float(), batch["ai_active"].float()
-    B, S = uv.shape
+    B, L = uv.shape
     D = S - 1
     idx = torch.arange(D)[:, None] + 1 + torch.arange(N)[None]  # (D, N) future slot indices
-    inr = idx < S
-    idc = idx.clamp(max=S - 1)
-    vad = uv[:, idc]  # (B, D, N)
-    mask = inr[None].expand(B, D, N).float()
+    idc = idx.clamp(max=L - 1)
+    lv = batch.get("label_valid", torch.ones(B, L)).float()
+    mask = lv[:, idc] * (idx < L).float()[None]  # (B, D, N)
+    vad = uv[:, idc]
     ov = (uv * aa)[:, idc] * mask
-    full = inr.all(-1)  # decisions whose whole horizon is inside the sequence
+    full = mask.min(-1).values  # (B, D): whole horizon observed
     rel = torch.arange(N)[None, None].expand(B, D, N)  # relative future slot k
     first = torch.where((vad * mask) > 0.5, rel, torch.full_like(rel, N))
     onset = first.min(-1).values  # (B, D) in [0, N]; N = no user activity in the horizon
-    onset_valid = (onset < N) | full[None]
+    onset_valid = ((onset < N).float() + full).clamp(max=1)
     overlap = (ov.sum(-1) > 0).float()
-    hfull = full[None].expand(B, D).float()
     # a binary "happens within the horizon" target is known if the horizon is complete OR it already happened
-    out = {"vad": vad, "vad_mask": mask, "onset": onset, "onset_mask": onset_valid.float(),
-           "overlap": overlap, "overlap_mask": torch.maximum(hfull, overlap), "horizon_mask": hfull}
+    out = {"vad": vad, "vad_mask": mask, "onset": onset, "onset_mask": onset_valid,
+           "overlap": overlap, "overlap_mask": torch.maximum(full, overlap), "horizon_mask": full}
     if "events" in batch:
         ev = batch["events"].float()[:, idc]  # (B, D, N, n_ev)
         out["events"] = (ev * mask[..., None]).amax(2)
-        out["events_mask"] = torch.maximum(hfull[..., None], out["events"])
-    if "cost" in batch:
-        G = discounted_returns(batch["cost"].float(), gamma)
+        out["events_mask"] = torch.maximum(full[..., None], out["events"])
+    if "cost_to_go" in batch:
+        out["cost"] = batch["cost_to_go"][:, 1:S].float()
+        out["cost_mask"] = batch.get("cost_to_go_mask", torch.ones_like(batch["cost_to_go"]))[:, 1:S].float()
+    elif "cost" in batch:
+        G = discounted_returns(batch["cost"].float()[:, :S], gamma)
         out["cost"] = G[:, 1:]  # cost-to-go from slot d+1
         tail_ok = (torch.arange(D) + 1 + min_tail) <= S
         out["cost_mask"] = tail_ok[None].expand(B, D).float()
@@ -117,9 +124,11 @@ def compute_losses(model, batch: dict, res: dict, weights: dict | None = None, d
         tg = tokens[bidx[:, None], fut.clamp(max=S - 1)][..., :pc]  # (N, K-1, F, pc)
         add("probe", token_ce(pl, tg, inr[:, :, None, None]))
     if w["plan_activity"] > 0 and "ai_active" in batch:
+        La = batch["ai_active"].shape[1]
         fut = torch.arange(D)[:, None] + 1 + torch.arange(K)[None]
-        m = (fut < S).float()[None] * valid[..., None]
-        tgt = batch["ai_active"].float()[:, fut.clamp(max=S - 1)]
+        lv = batch.get("label_valid", torch.ones(B, La)).float()
+        m = lv[:, fut.clamp(max=La - 1)] * (fut < La).float()[None] * valid[..., None]
+        tgt = batch["ai_active"].float()[:, fut.clamp(max=La - 1)]
         add("plan_activity", _masked_mean(F.binary_cross_entropy_with_logits(res["activity"], tgt, reduction="none"), m))
     if w["plan_stability"] > 0 and K > 1:
         add("plan_stability", res["revision"][..., 1:].mean())

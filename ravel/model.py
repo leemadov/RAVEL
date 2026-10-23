@@ -45,7 +45,7 @@ class RAVEL(nn.Module):
         self.feedback = SelfMonitoringFeedback(c.n_q, c.vocab, c.frames_per_slot, cfg.feedback.d_f, C, self.tps)
         d_slot = cfg.planner.d_slot
         self.core = DualStateCore(cfg.apf.d_model, cfg.feedback.d_f, co.d_act, d_slot, co.d_h, co.d_a, co.d_i,
-                                  co.d_m, co.d_couple, co.slow_every, co.ffn_mult, co.lru_c)
+                                  co.d_m, co.d_couple, co.slow_every, co.ffn_mult, co.lru_c, co.d_intent)
         r = cfg.rif
         if r.enabled:
             self.rif = ReciprocalInfluenceField(co.d_h, co.d_a, co.d_i, co.d_m, co.d_act, r.d_hidden, r.d_head,
@@ -118,6 +118,7 @@ class RAVEL(nn.Module):
 
         batch: mic_mel/ref_mel (B, T, n_mels) or mic_wav/ref_wav (B, T*480); ai_tokens (B, S, F, Q);
                actions (B, S) (action that governed each slot).  T = 2S.
+               optional intent_in (B, S, d_intent): AI-private intent known during slot s.
         Returns per-decision tensors with D = S-1 decisions (decision d predicts slot d+1).
         """
         mic_mel = batch["mic_mel"] if "mic_mel" in batch else self.mel(batch["mic_wav"])
@@ -130,6 +131,7 @@ class RAVEL(nn.Module):
         p_user = torch.sigmoid(apf_aux["user_vad_logit"]).unsqueeze(-1)
         f = self.feedback(tokens, actions)
         act_tick = self.act_emb(actions).repeat_interleave(self.tps, dim=1)
+        intent = batch["intent_in"].float().repeat_interleave(self.tps, dim=1) if "intent_in" in batch else None
         st = self.core.init_state(B)
         P = self.planner.init_plan(B)
         rec = {k: [] for k in ["y_h", "y_a", "y_i", "m", "prior", "relevance", "plan", "gate", "revision",
@@ -141,7 +143,8 @@ class RAVEL(nn.Module):
             plan_sum = P_.mean(1)
             for j in range(self.tps):
                 t = s_ * self.tps + j
-                st_ = self.core.step(st_, z[:, t], p_user[:, t], f[:, t], act_tick[:, t], plan_sum)
+                st_ = self.core.step(st_, z[:, t], p_user[:, t], f[:, t], act_tick[:, t], plan_sum,
+                                     intent[:, t] if intent is not None else None)
             return st_
 
         for s in range(S):

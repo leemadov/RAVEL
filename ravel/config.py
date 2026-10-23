@@ -50,6 +50,7 @@ class CoreCfg:
     d_m: int = 512
     d_couple: int = 192
     d_act: int = 64
+    d_intent: int = 0        # optional AI-private intent input (used by the simulator: pending content)
     slow_every: int = 10
     ffn_mult: int = 3
     lru_c: float = 8.0
