@@ -9,3 +9,7 @@ data/
 !results/**/*.json
 !results/digit_qa_policy_examples/
 !results/digit_qa_policy_examples/*.wav
+!results/samples/
+!results/samples/**/
+!results/samples/**/*.wav
+!results/samples/*.wav
